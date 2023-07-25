@@ -1,7 +1,4 @@
-
-
 const  express = require('express');
-
 const app = express()
 const path=require('path')
 const nocache=require('nocache')
@@ -9,9 +6,7 @@ const session=require('express-session')
 const morgan=require('morgan')
 // const logger=require('logger')
 const config=require('./config/config')
-
-
-
+console.log('data')
 const cookieParser = require('cookie-parser');
 
 const  userRouter = require('./routes/userRoute');
