@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+
+    .container-fluid {
+      padding: 0;
+    }
+
+    .sidebar {
+      background-color: #333;
+      color: #fff;
+      border-right: 2px solid #6c757d;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+   
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #6c757d;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: #17a2b8;
+    }
+
+    .main-content {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    .navbar {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .navbar .nav-link {
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-link:hover {
+      color: #17a2b8;
+    }
+
+    table {
+      background-color: #f8f9fa;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table th,
+    table td {
+      background-color: #fff;
+      color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+
+    table th {
+      font-weight: bold;
+    }
+
+    table td button {
+      margin-right: 5px;
+    }
+
+    .dataTables_filter {
+      margin-bottom: 10px;
+    }
+
+    .dataTables_filter input {
+      height: 30px;
+      border-radius: 3px;
+      width: 150px; /* Adjust the width as needed */
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 576px) {
+      table {
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/home">NutriFreshrFruit</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/addProducts">Add Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+        <div class="main-content">
+          <h2>Product List</h2>
+          <div class="table-responsive">
+            <table class="table" id="product-table">
+              <thead>
+                <tr>
+                  <th scope="col">Product ID</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Kg</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i=0;i<product.length;i++){ %>
+                <tr>
+                  <td><%= i+1 %></td>
+                  <td>
+                    <div class="product-info">
+                      <div class="image-container">
+                        <img src="/public/images/<%=product[i].productImage[0]%>" alt="Product Image" class="product-image" style="width: 70px; height: 70px;">
+                      </div>
+                      <div class="name-container">
+                        <span class="product-name"><%= product[i].productName %></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><%= product[i].categoryName %></td>
+                  <td><%= product[i].productDescription %></td>
+                  <td><%= product[i].price %></td>
+                  <td><%= product[i].kg %></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-primary" onclick="confirmEdit('<%= product[i]._id %>')">Edit</button>
+                      <button class="btn btn-danger" onclick="confirmDelete('<%= product[i]._id %>')">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Add more rows as needed -->
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+    $(function () {
+      $('#product-table').DataTable();
+
+      // Move the DataTable search input to the navbar
+      $('#datatable-search').detach().appendTo('.navbar-collapse');
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function confirmEdit(productId) {
+      const editUrl = `/admin/editProducts?id=${productId}`;
+  
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to edit this product?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, edit it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to the edit URL
+          window.location.href = editUrl;
+        }
+      });
+    }
+  
+    function confirmDelete(productId) {
+      const deleteUrl = `/admin/deleteProduct?id=${productId}`;
+  
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to delete this product?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to the delete URL
+          window.location.href = deleteUrl;
+        }
+      });
+    }
+  </script>
+  
+  
+</body>
+
+</html>

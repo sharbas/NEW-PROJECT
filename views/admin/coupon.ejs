@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+ <style>
+    .navbar {
+      background-color: #333;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar {
+      background-color: #333;
+     
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar a:hover {
+      color: #0069d9;
+    }
+
+    .logout {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+    }
+
+/* Add these styles at the end of the existing <style> tag */
+
+  .coupon-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 60px;
+  margin-left: 10px;
+}
+
+.coupon {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.coupon-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.coupon-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.coupon-image img {
+  width: 100%;
+  height: auto;
+}
+
+.coupon-details {
+  flex-grow: 1;
+}
+
+.coupon-code {
+  margin-top: 10px;
+}
+
+.coupon-code-icon {
+  color: #6d6b6b;
+}
+
+.coupon-description {
+  margin-bottom: 10px;
+}
+
+.coupon-expiry {
+  margin-bottom: 10px;
+}
+
+.coupon-status span {
+  font-weight: bold;
+}
+
+.coupon-status span.active {
+  color: green;
+}
+
+.coupon-status span.inactive {
+  color: red;
+}
+
+.delete-link {
+  text-decoration: none;
+  color: black;
+}
+
+.delete-link i {
+  margin-right: 5px;
+}
+
+.edit-icon {
+  text-decoration: none;
+  color: black;
+  margin-right: 5px;
+}
+
+.edit-icon i {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  .coupon-section {
+    justify-content: center;
+  }
+}
+
+
+ 
+
+    /* Additional styling for layout */
+    .container-fluid {
+      padding: 0;
+    }
+
+    .row {
+      margin: 0;
+    }
+
+    .main-content {
+  display: flex;
+  min-height: calc(100vh - 60px); /* Adjust min-height to fill the remaining viewport */
+}
+
+    .sidebar {
+  flex-basis: 20%;
+  flex-grow: 0;
+}
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <nav class="navbar">
+      <a href="/admin/home" class="navbar-logo">NutriFreshFruit</a>
+      <a href="/admin/logout">Logout</a>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10 main-content">
+        <div class="coupon-section">
+          <div class="col-lg-9 col-sm-9">
+            <div class="mt-5 row">
+              <% coupons.forEach((coupon) => { %>
+                <div class="coupon col-lg-4" style="background-color: #f6f6f6; margin-bottom: 20px; margin-left: 60px;">
+                  <div class="coupon-content">
+                  <div class="coupon-image" style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                    <img src="/public/images/<%= coupon.image%>" alt="Coupon Image" style="width: 100%; height: auto;">
+                  </div>
+                  <div class="coupon-details">
+                    <h3 class="coupon-code">
+                      <i class="fas fa-ticket-alt coupon-code-icon mx-1" style="color: rgb(109, 107, 107);"> <%= coupon.coupenCode %></i>
+                    </h3>
+                    <p class="coupon-description"><%= coupon.description %></p>
+                    <p class="coupon-expiry">Expires on: <%= (coupon.expiryDate).toLocaleDateString() %></p>
+                    <% if (coupon.status == 'Active') { %>
+                    <p class="coupon-status">
+                      Status: <span style="color: green; font-weight: 600;"><%= coupon.status %></span>
+                    </p>
+                    <% } else { %>
+                    <p class="coupon-status">
+                      Status: <span style="color: red; font-weight: 600;"><%= coupon.status %></span>
+                    </p>
+                    <% } %>
+                  
+                    <!-- <a href="edit-coupon?id= coupon._id " class="edit-icon" style="text-decoration: none;color: black;">
+                      <i class="fas fa-edit"></i>
+                    </a> -->
+                    <a href="/admin/deletecoupon/?id=<%= coupon._id %>" class="delete-link">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                    
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <script>
+    // JavaScript
+    const deleteLink = document.querySelector('.delete-link');
+  
+    deleteLink.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the default link behavior
+  
+      // Display the Sweet Alert confirmation dialog
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this item!",
+        icon: "warning",
+        buttons: ["Cancel", "Delete"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          // If the user confirms the deletion, proceed with the link redirection
+          window.location.href = deleteLink.href;
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

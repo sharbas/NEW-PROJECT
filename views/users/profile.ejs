@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+  crossorigin="anonymous"
+/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <!-- Add your CSS stylesheets and external resources here -->
+
+  <!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="/public/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="/public/assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="/public/assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="/public/assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="/public/assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="/public/assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="/public/assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="/public/assets/css/responsive.css">
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="/path/to/sweetalert.min.js"></script>
+
+
+  <style>
+    /* Add your custom styles here */
+    body {
+      background-color: #da7420;
+    }
+  
+    .top-header-area {
+      background-color: #000;
+      padding: 10px;
+    }
+  
+    .site-logo a {
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  
+    .main-menu-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+    }
+  
+    .main-menu ul {
+      display: flex;
+      align-items: center;
+    }
+  
+    .main-menu ul li {
+      list-style: none;
+      margin-right: 20px;
+    }
+  
+    .main-menu ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+  
+    .banner-area {
+      height: 200px;
+      background-color: #da7420;
+    }
+  
+    .organic-breadcrumb {
+      background-color: #fff;
+      padding: 20px;
+    }
+  
+    .pt-5 {
+      padding-top: 5rem;
+    }
+  
+    .bg-light {
+      background-color: #f8f9fa !important;
+    }
+  
+    .widget-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  
+    .footer-area {
+      background-color: #000;
+      padding: 30px 0;
+      color: #fff;
+    }
+  
+    .footer-box h2 {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  
+    .footer-box ul li {
+      list-style: none;
+      margin-bottom: 5px;
+    }
+  
+    .footer-box input[type="email"] {
+      border: none;
+      border-radius: 0;
+      padding: 10px;
+    }
+  
+    .footer-box button[type="submit"] {
+      border: none;
+      background-color: #da7420;
+      padding: 10px 15px;
+      color: #fff;
+      border-radius: 0;
+      cursor: pointer;
+    }
+  
+    /* This will make the sub-menu items appear vertically */
+    .main-menu .sub-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      padding: 5px;
+      z-index: 999;
+    }
+  
+    .main-menu .sub-menu a {
+      color: #000;
+    }
+  
+    .main-menu .has-submenu:hover .sub-menu {
+      display: block;
+    }
+  
+    /* Optional: Add some styling to make it visually appealing */
+    .main-menu .sub-menu li {
+      display: block;
+      margin: 5px 0;
+    }
+  
+  </style>
+  
+</head>
+
+<body>
+
+  <!-- end header -->
+  <section class="banner-area organic-breadcrumb ">
+    
+  </section>
+  <!-- End Banner Area -->
+
+<!-- header -->
+<div class="top-header-area bg-dark" id="sticker">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-sm-12 text-center">
+        <div class="main-menu-wrap">
+          <!-- logo -->
+          <div class="site-logo">
+            <a href="/home">
+              <h5><span class="orange-text">NutriFreshFruit</span></h5>
+            </a>
+          </div>
+          <!-- logo -->
+
+          <!-- menu start -->
+          <nav class="main-menu ">
+            <ul>
+              <li class="current-list-item"><a href="/home">Home</a>
+              </li>
+              <li><a href="/shop">Shop</a>
+                <ul class="sub-menu">
+                  <li><a href="/shop">Shop</a></li>
+                  <li><a href="/cart">Cart</a></li>
+                  <li><a href="/coupon">Coupons</a></li>
+                  <li><a href="/myOrder">my orders</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="/myOrder">My Order</a>
+              </li>
+              <li>
+                <a href="/logout">Logout</a>
+                </li>
+              <li>
+                <div class="header-icons">
+                  <a class="shopping-cart" href="/cart"><i class="fas fa-shopping-cart"></i></a>
+                
+                </div>
+                
+              </li>
+            
+            </ul>
+            <ul>
+              <li>
+                <div class="container ">
+                  <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end ">
+                    <div class="col-first">
+               
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+          <div class="mobile-menu"></div>
+          <!-- menu end -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="pt-5" style="background-color: #da7420; margin-top: 10px;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between">
+          <h5 class="pt-2">USER PROFILE</h5>
+            <a class="btn btn-success text-white d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#profileEdit">Edit Profile</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Display User Profile -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row d-flex">
+          <div class="ms-4 col-md-6">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b class="text-dark">Name</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= userData.name %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b class="text-dark">Email</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= userData.email %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b class="text-dark">Phone</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= userData.phone %></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header fw-bold">
+                <h4>Wallet</h4>
+              </div>
+              <div class="card-body d-flex">
+                <h5 class="card-title me-3">Balance:</h5>
+                <p class="card-text"><%= userData.wallet %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row px-3">
+          <p class="text-center"><u><b>Address</b></u></p>
+          <% userData.address.forEach(function(address, index) { %>
+            <div class="col-sm-4 my-2">
+              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <h5 class="card-title"><%= address.addressType %></h5>
+                    <div>
+                      <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addressEdit"><i class="fa-solid fa-pen mx-1" style="color: #808080;"></i></a>
+                      <a onclick="deleteAddress(<%= index %>)" style="cursor: pointer;"><i class="fas fa-trash-alt" style="color: #f60404;"></i></a>
+                    </div>
+                  </div>
+                  <p class="card-text">
+                    <%= address.address %><br>
+                    <%= address.city %>, <%= address.district %>, <%= address.state %><br>
+                    <%= address.zip %>, <%= address.country %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+          
+          <a class="btn text-white btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#addAddress">Add Address</a>
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+    </div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+
+<!-- Address Modal -->
+<div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Address</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/profile-address-add" method="post">
+          <div class="AddressTypeInput my-2">
+            <label for="type" class="my-2">Type</label><br>
+            <input class="form-control" type="text" name="type" id="type" required>
+          </div>
+      
+          <div class="AddressInput my-2">
+            <label for="city" class="my-2">City</label><br>
+            <input class="form-control" type="text" name="city" id="city" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="district" class="my-2">District</label><br>
+            <input class="form-control" type="text" name="district" id="district" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="state" class="my-2">State</label><br>
+            <input class="form-control" type="text" name="state" id="state" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="zip" class="my-2">ZIP Code</label><br>
+            <input class="form-control" type="text" name="zip" id="zip" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="country" class="my-2">Country</label><br>
+            <input class="form-control" type="text" name="country" id="country" required>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Add">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="profileEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Profile</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/profile-edit" method="post">
+          <div class="AddressTypeInput my-2">
+            <label for="name" class="my-2">Name</label><br>
+            <input class="form-control" type="text" name="name" value="<%= userData.name %>" required>
+          </div>
+          <div class="AddressTypeInput my-2">
+            <label for="email" class="my-2">Email</label><br>
+            <input class="form-control" type="email" name="email" value="<%= userData.email %>" required>
+          </div>
+          <div class="AddressTypeInput my-2">
+            <label for="mobile" class="my-2">Mobile</label><br>
+            <input class="form-control" type="tel" name="mobile" pattern="[0-9]{10}" value="<%= userData.phone %>" required>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save Changes">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Edit Address Modal -->
+<div class="modal fade" id="addressEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Address</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/edit-address" method="post">
+          <input type="hidden" name="addressId" id="addressId" value="">
+          <div class="AddressTypeInput my-2">
+            <label for="type" class="my-2">Type</label><br>
+            <input class="form-control" type="text" name="type" id="type" required>
+          </div>
+          
+          <div class="AddressInput my-2">
+            <label for="city" class="my-2">City</label><br>
+            <input class="form-control" type="text" name="city" id="city" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="district" class="my-2">District</label><br>
+            <input class="form-control" type="text" name="district" id="district" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="state" class="my-2">State</label><br>
+            <input class="form-control" type="text" name="state" id="state" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="zip" class="my-2">ZIP</label><br>
+            <input class="form-control" type="text" name="zip" id="zip" required>
+          </div>
+          <div class="AddressInput my-2">
+            <label for="country" class="my-2">Country</label><br>
+            <input class="form-control" type="text" name="country" id="country" required>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save Changes">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- footer -->
+<div class="footer-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box about-widget">
+          <h2 class="widget-title">About us</h2>
+          <p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box get-in-touch">
+          <h2 class="widget-title">Get in Touch</h2>
+          <ul>
+            <li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+            <li>support@NutriFreshFruit.com</li>
+            <li>+00 111 222 3333</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box pages">
+          <h2 class="widget-title">Pages</h2>
+          <ul>
+            <li><a href="/home">/Home</a></li>
+            <li><a href="services.html">Shop</a></li>
+        
+            
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box subscribe">
+          <h2 class="widget-title">Subscribe</h2>
+          <p>Subscribe to our mailing list to get the latest updates.</p>
+          <form action="/home">
+            <input type="email" placeholder="Email">
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end footer -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  function deleteAddress(index) {
+    swal({
+      title: 'Are you sure to remove this Address?',
+      text: "You can't retrieve data later",
+      icon: 'warning',
+      buttons: ['Cancel', 'Delete'],
+      dangerMode: true,
+    }).then((confirmed) => {
+      if (confirmed) {
+        // Make an AJAX request to delete the address
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/delete-address', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            swal('Deleted!', 'Address has been deleted.', 'success').then(() => {
+              window.location.href = '/profile';
+            });
+          } else {
+            console.log('Delete address request failed. Status: ' + xhr.status);
+            // Handle error case
+          }
+        };
+        xhr.send(JSON.stringify({ addressIndex: index }));
+      }
+    });
+  }
+</script>
+
+
+
+
+
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+crossorigin="anonymous"
+></script>
+<!-- jquery -->
+<script src="/public/assets/js/jquery-1.11.3.min.js"></script>
+<!-- bootstrap -->
+<script src="/public/assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- count down -->
+<script src="/public/assets/js/jquery.countdown.js"></script>
+<!-- isotope -->
+<script src="/public/assets/js/jquery.isotope-3.0.6.min.js"></script>
+<!-- waypoints -->
+<script src="/public/assets/js/waypoints.js"></script>
+<!-- owl carousel -->
+<script src="/public/assets/js/owl.carousel.min.js"></script>
+<!-- magnific popup -->
+<script src="/public/assets/js/jquery.magnific-popup.min.js"></script>
+<!-- mean menu -->
+<script src="/public/assets/js/jquery.meanmenu.min.js"></script>
+<!-- sticker js -->
+<script src="/public/assets/js/sticker.js"></script>
+<!-- main js -->
+<script src="/public/assets/js/main.js"></script>
+
+</body>
+
+</html>

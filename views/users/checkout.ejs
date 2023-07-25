@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description"
+		content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Check Out</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="/public/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="/public/assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="/public/assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="/public/assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="/public/assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="/public/assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="/public/assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="/public/assets/css/responsive.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<style>
+		.error-message {
+			color: red;
+			margin-top: 10px;
+		}
+		.boxed-btn {
+    /* Add your desired button styles here */
+    /* For example: */
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .boxed-btn:hover {
+    box-shadow: 0 0 20px #4CAF50;
+  }
+
+  .btn-apply {
+    /* Add your desired button styles here */
+    /* For example: */
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .btn-apply:hover {
+    box-shadow: 0 0 20px #008CBA;
+  }
+  .icon-header-noti::after {
+  content: attr(data-notify);
+  font-family: Poppins-Regular;
+  font-size: 12px;
+  color: #fff;
+  line-height: 15px;
+  text-align: center;
+
+  display: block;
+  position: absolute;
+  top: -7px;
+  right: 0;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  background-color: #717fe0;
+}
+	</style>
+</head>
+
+<body>
+
+	<!--PreLoader-->
+	<div class="loader">
+		<div class="loader-inner">
+			<div class="circle"></div>
+		</div>
+	</div>
+	<!--PreLoader Ends-->
+
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="/home">
+								<h5><span class="orange-text">NutriFreshFruit</span></h5>
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="current-list-item"><a href="/home">Home</a>
+									<!-- <ul class="sub-menu">
+										<li><a href="/home">Static Home</a></li>
+										<li><a href="index_2.html">Slider Home</a></li>
+									</ul> -->
+								</li>
+
+
+								<li><a href="/shop">Shop</a>
+									<ul class="sub-menu">
+										<li><a href="/shop">Shop</a></li>
+
+										<li><a href="/cart">Cart</a></li>
+										<li><a href="/coupon">Coupons</a></li>
+										<li><a href="/myOrder">my orders</a></li>
+									</ul>
+								</li>
+								<li>
+									<div class="profile-logo" style="margin-left: 25px;"> <!-- Added inline style -->
+										<a href="/profile"> <img src="/public/images/profile2.png"
+												alt="User Profile Logo" class="img-fluid rounded-circle"
+												style="width: 16px; height: 17px;"></a>
+
+									</div>
+								</li>
+								<li>
+									<div class="header-icons">
+										<% if(userCartData.product.length==0){ %>
+											<div class="header-icons icon-header-noti" style="display: flex; align-items: center;" data-notify="0">
+											<a class="shopping-cart" href="/cart">
+											  <i class="fas fa-shopping-cart"></i>
+											</a>
+										  </div>
+									<%	}else{ %>
+										<div class="header-icons icon-header-noti" style="display: flex; align-items: center;" data-notify="<%= userCartData.product.length%>">
+											<a class="shopping-cart" href="/cart">
+											  <i class="fas fa-shopping-cart"></i>
+											</a>
+										  </div>
+									<%	} %>
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+
+
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Check Out Product</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- check out section -->
+	<form class="pay-form">
+		<div class="container">
+		  <div class="row">
+			<div class="col-lg-8">
+			  <div class="checkout-accordion-wrap">
+				<div class="accordion" id="accordionExample">
+				  <!-- Billing Address -->
+				  <div class="card single-accordion" style="margin-top: 60px;">
+					<div class="card-header" id="headingOne">
+					  <h5 class="mb-0">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						  Billing Address
+						</button>
+					  </h5>
+					</div>
+					<select name="address_id" id="selectAddress" onchange="function1()">
+					  <option value="">Select address</option>
+					  <% user.address.forEach(function(address, index) { %>
+					  <option value="<%= index %>">
+						<%= address.addressType %>
+					  </option>
+					  <% }) %>
+					</select>
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					  <div class="card-body">
+						<div class="billing-address-form">
+						  <% const addressFields = ['name', 'email', 'phone']; %>
+						  <% addressFields.forEach(function(field) { %>
+						  <p><input type="text" name="<%= field %>" placeholder="<%= field.charAt(0).toUpperCase() + field.slice(1) %>" required value="<%= user[field] %>"></p>
+						  <% }) %>
+						  <p><input type="text" name="city" placeholder="City" required value=""></p>
+						  <p><input type="text" name="district" placeholder="District" required value=""></p>
+						  <p><input type="text" name="state" placeholder="State" required value=""></p>
+						  <p><input type="text" name="zip" placeholder="ZIP Code" required value=""></p>
+						  <p><input type="text" name="country" placeholder="Country" required value=""></p>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  
+				  <!-- <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
+					  <div class="billing-address-form">
+						<p><input type="text" name="name" placeholder="Name" required value="<%= user.name %>"></p>
+						<p><input type="email" name="email" placeholder="Email" required value="<%= user.email %>"></p>
+						<p><input type="tel" name="phone" placeholder="Phone" required value="<%= user.phone %>"></p>
+					
+						<p><input type="text" name="city" placeholder="City" required value=""></p>
+						<p><input type="text" name="district" placeholder="District" required value=""></p>
+						<p><input type="text" name="state" placeholder="State" required value=""></p>
+						<p><input type="text" name="zip" placeholder="Zip" required value=""></p>
+						<p><input type="text" name="country" placeholder="Country" required value=""></p>
+					  </div>
+					</div>
+				  </div>
+				   -->
+				  
+
+
+							<!-- Payment Method -->
+
+							<div class="card single-accordion">
+								<div class="card-header" id="headingThree">
+									<h5 class="mb-0">
+										<button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+											data-target="#collapseThree" aria-expanded="false"
+											aria-controls="collapseThree">
+											Payment Method
+										</button>
+									</h5>
+								</div>
+								<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+									data-parent="#accordionExample">
+									<div class="card-body">
+										<div class="payment-method">
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="payment"
+													id="cashOnDelivery" value="cash">
+												<label class="form-check-label" for="cashOnDelivery">
+													Cash on Delivery
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="payment"
+													id="razorpayPayment" value="NetBanking">
+												<label class="form-check-label" for="razorpayPayment">
+													Razorpay
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="payment"
+													id="walletPayment" value="wallet">
+												<label class="form-check-label" for="walletPayment">
+													Wallet Payment
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Apply Coupon and Order Details -->
+				<div class="col-lg-4">
+					
+					<div class="coupon-section">
+						<h3>Apply Coupon</h3>
+						<div class="coupon-form-wrap">
+							<!-- <form action="/address"> -->
+							<p><input type="text" id="code" name="coupon" placeholder="Coupon"></p>
+							<p><input type="button" class="btn-apply" value="Apply"></p>
+							<!-- </form> -->
+						</div>
+						<div class="couponMessage hide"></div>
+					</div>
+
+					<div class="order-details-wrap" style="margin-top: 30px;">
+						<table class="order-details">
+							<thead>
+								<tr>
+									<th>Your Order Details</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody class="order-details-body">
+								<% for (let i=0; i < cart.product.length; i++) { %>
+									<tr>
+										<td>
+											<%= cart.product[i].productId.productName %>
+										</td>
+										<td>&#8377;<%= cart.product[i].total %>
+										</td>
+									</tr>
+									<% } %>
+							</tbody>
+							<tbody class="checkout-details">
+								<tr>
+									<td>Subtotal</td>
+									<td>&#8377;<%= subTotal %>
+									</td>
+								</tr>
+								<tr>
+									<td>Shipping</td>
+									<td>Free</td>
+								</tr>
+								<tr>
+									<td>Total</td>
+									<td>&#8377;<span id="totalValue">
+											<%= grandTotal %>
+										</span></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<input type="number" name="amount" id="totalValues" value="<%= grandTotal %>"
+											style="display: none;">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Place Order Button -->
+					<button id="placeOrderButton" class="boxed-btn" type="submit">Place Order</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+	<!-- end check out section -->
+
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/1.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/2.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/3.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/4.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/5.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end logo carousel -->
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium
+							doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+							<li>support@NutriFreshFruit.com</li>
+							<li>+00 111 222 3333</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Pages</h2>
+						<ul>
+							<li><a href="/home">Home</a></li>
+
+							<li><a href="services.html">Shop</a></li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates.</p>
+						<form action="/home">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="">sharbas mohammed</a>, All Rights Reserved.<br>
+
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="/public/assets/js/jquery-1.11.3.min.js"></script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>
+	  let applyButton = document.querySelector(".btn-apply");
+	  let messageElement = document.querySelector('.couponMessage');
+	  let codeInput = document.getElementById('code');
+	  let totalValue = document.getElementById('totalValue');
+	  let totalValues = document.getElementById('totalValues');
+	
+	  function clearInput() {
+		codeInput.value = '';
+		messageElement.classList.add("hide");
+	  }
+	
+	  applyButton.addEventListener('click', function () {
+		swal({
+		  title: "Are you sure you want to apply the coupon?",
+		  text: "Once applied, the discount will be reflected in the total value.",
+		  icon: "warning",
+		  buttons: ["Cancel", "Apply"],
+		  dangerMode: false,
+		}).then((willApply) => {
+		  if (willApply) {
+			validateCode();
+		  }
+		});
+	  });
+	
+	  function validateCode() {
+		let amount = totalValues.value;
+		let enteredCode = codeInput.value.trim();
+	
+		fetch('/checkCouponAvailable', {
+		  method: "POST",
+		  headers: {
+			'Content-Type': 'application/json'
+		  },
+		  body: JSON.stringify({ code: enteredCode, amount: amount })
+		})
+		  .then(response => response.json())
+		  .then(data => {
+			if (data.available == true) {
+			  let discountAmount = data.couponAmounts;
+			  totalValue.textContent = data.couponApplyDiscount;
+			  messageElement.textContent = `Coupon code is available. You will get ₹ ${discountAmount} Off`;
+			} else if (data.coupon === false) {
+			  messageElement.textContent = "Invalid Coupon";
+			}
+			else if (data.min === false) {
+			  messageElement.textContent = 'The coupon must activate on, when you purchase a minimum amount of 500 Rupees';
+			} else {
+			  messageElement.textContent = 'Coupon code is invalid or the amount is less than required';
+			}
+	
+			messageElement.classList.remove("hide");
+			messageElement.classList.add("show");
+	
+			setTimeout(() => {
+			  messageElement.classList.remove('show');
+			  messageElement.classList.add('hide');
+			}, 5000);
+		  })
+		  .catch(error => {
+			console.error(error);
+		  });
+	  }
+	</script>
+	
+
+	<script>
+		$(document).ready(function() {
+  $('.pay-form').submit(function(e) {
+    e.preventDefault();
+
+    var paymentMethod = $('input[name="payment"]:checked').val();
+    if (!paymentMethod) {
+      // Payment method not selected, show required message
+      $('.payment-method').addClass('has-error');
+      return false;
+    } else {
+      $('.payment-method').removeClass('has-error');
+    }
+
+    $('#placeOrderButton').click(function(event) {
+      event.preventDefault();
+
+      var paymentText = "";
+      if (paymentMethod == 'cash') {
+        paymentText = "cash on delivery";
+      } else if (paymentMethod == 'NetBanking') {
+        paymentText = "Razorpay";
+      } else if (paymentMethod == 'wallet') {
+        paymentText = "wallet";
+      }
+
+      swal({
+        title: "Place Order",
+        text: "Confirm order with " + paymentText + "?",
+        icon: "info",
+        buttons: ["Cancel", "Place Order"],
+        dangerMode: false,
+      }).then((placeOrder) => {
+        if (placeOrder) {
+							var paymentMethod = $('input[name="payment"]:checked').val();
+							if (paymentMethod == 'NetBanking') {
+  var formData = $('.pay-form').serialize();
+  $.ajax({
+    url: "/createOrder",
+    type: "POST",
+    data: formData,
+    success: function (res) {
+      if (res.success) {
+        var options = {
+          "key": "" + res.key_id + "",
+          "amount": "" + res.amount + "",
+          "currency": "INR",
+          "name": "Orders",
+          "description": "Test Transaction",
+          "image": "/images/zel_logo.jpg",
+          "order_id": "" + res.order_id + "",
+          "handler": function (response) {
+            var form = $('.pay-form');
+            var url = form.attr('action');
+            var method = form.attr('method');
+            $('<input>').attr({
+              type: 'hidden',
+              name: 'paymentMethod',
+              value: paymentMethod
+            }).appendTo(form);
+            
+            // Update the amount field with the dynamically calculated total
+            $('#totalValues').val(response.amount);
+
+            form.attr('action', '/checkout');
+            form.attr('method', 'POST');
+            form.unbind('submit').submit();
+            form.attr('action', url);
+            form.attr('method', method);
+            location.href = `/viewOrderDetails?id=${orderId}`;
+          },
+          "prefill": {
+            "name": "" + res.name + "",
+            "email": "" + res.email + "",
+            "contact": "" + res.mobile + ""
+          },
+          "notes": {
+            "address": "Razorpay Corporate Office"
+          },
+          "theme": {
+            "color": "green"
+          }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+          swal("Payment Failed", "", "error");
+        });
+        rzp1.open();
+      } else {
+        alert(res.msg);
+      }
+    }
+  });
+}
+else if (paymentMethod == 'wallet') {
+								const wallet = JSON.parse(decodeURIComponent('<%- encodeWallet%>'));
+								const totalValues = parseFloat($('#totalValues').val());
+
+								if (totalValues <= wallet) {
+									// var formData = $(this).serialize();
+									var formData = $('.pay-form').serialize();
+									var userId = ''; // Add the user ID here, either from a hidden input or a global variable
+									var amount = parseInt($('#totalValues').val());
+									console.log('hai sharbas');
+									$.ajax({
+										url: '/wallet-payment',
+										type: 'POST',
+										// data: {
+										
+										//   amount
+										// },
+										data:formData,
+										// data: { amount },
+										success: function (res) {
+											if (res.success) {
+												var form = $('.pay-form');
+												var url = form.attr('action');
+												var method = form.attr('method');
+												$('<input>').attr({
+													type: 'hidden',
+													name: 'paymentMethod',
+													value: paymentMethod,
+												}).appendTo(form);
+												form.attr('action', '/checkout');
+												form.attr('method', 'POST');
+												form.unbind('submit').submit();
+												form.attr('action', url);
+												form.attr('method', method);
+												location.href = `/viewOrderDetails?id=${orderId}`;
+											} else {
+												// Display error message for insufficient balance
+												$('.payment-method').after(`<p class="error-message">${res.message}</p>`);
+												setTimeout(function () {
+													$('.error-message').remove();
+												}, 3000);
+											}
+										},
+										error: function () {
+											alert('An error occurred');
+										},
+									});
+								} else {
+									swal("Insufficient Balance", "", "warning");
+								}
+							} else {
+								var form = $('.pay-form');
+								var url = form.attr('action');
+								var method = form.attr('method');
+								$('<input>').attr({
+									type: 'hidden',
+									name: 'paymentMethod',
+									value: paymentMethod
+								}).appendTo(form);
+								form.attr('action', '/checkout');
+								form.attr('method', 'POST');
+								form.unbind('submit').submit();
+								form.attr('action', url);
+								form.attr('method', method);
+							}
+						}
+					});
+				});
+
+				function verifypayment(response, order) {
+					$.ajax({
+						url: '/verify-payment',
+						method: 'POST',
+						data: {
+							response,
+							order
+						},
+						success: (response) => {
+							if (response.status) {
+								const container = document.querySelector('.container');
+								container.style.display = 'none';
+								document.querySelector('.coupon-form').style.display = 'none';
+								swal({
+									icon: 'success',
+									title: 'Order Placed Successfully!',
+									showConfirmButton: false,
+									timer: 2000,
+								});
+								setTimeout(function () {
+									location.href = "/userorder";
+								}, 3000)
+							} else {
+								swal("Payment failed", "", "error");
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
+
+
+
+
+<script>
+	var encodeduser = '<%= encodeduser %>';
+	var decodeduser = decodeURIComponent(encodeduser);
+	var parseduser = JSON.parse(decodeduser);
+	console.log(parseduser.address);
+	var address = parseduser.address || [];
+  
+	function function1() {
+	  var selectBox = document.getElementById('selectAddress');
+	  var selectedAddressIndex = selectBox.value;
+  
+	  if (selectedAddressIndex !== "") {
+		var selectedAddress = address[selectedAddressIndex];
+		console.log(selectedAddress.addressType);
+  
+		// Update other address fields based on the selected address type
+		document.querySelector('[name="city"]').value = selectedAddress.city || "";
+		document.querySelector('[name="district"]').value = selectedAddress.district || "";
+		document.querySelector('[name="state"]').value = selectedAddress.state || "";
+		document.querySelector('[name="zip"]').value = selectedAddress.zip || "";
+		document.querySelector('[name="country"]').value = selectedAddress.country || "";
+	  } else {
+		// If no address is selected, clear the input fields
+		document.querySelector('[name="city"]').value = "";
+		document.querySelector('[name="district"]').value = "";
+		document.querySelector('[name="state"]').value = "";
+		document.querySelector('[name="zip"]').value = "";
+		document.querySelector('[name="country"]').value = "";
+	  }
+	}
+  </script>
+  
+  
+  
+  <script>
+	var userAddresses = <%= JSON.stringify(user.address) %>;
+	function function1() {
+	  var selectBox = document.getElementById('selectAddress');
+	  var selectedAddressIndex = selectBox.value;
+  
+	  if (selectedAddressIndex !== "") {
+		var selectedAddress = userAddresses[selectedAddressIndex];
+		document.querySelector('input[name="city"]').value = selectedAddress.city;
+		document.querySelector('input[name="district"]').value = selectedAddress.district;
+		document.querySelector('input[name="state"]').value = selectedAddress.state;
+		document.querySelector('input[name="zip"]').value = selectedAddress.zip;
+		document.querySelector('input[name="country"]').value = selectedAddress.country;
+	  } else {
+		// If no address is selected, clear the input fields
+		document.querySelector('input[name="city"]').value = "";
+		document.querySelector('input[name="district"]').value = "";
+		document.querySelector('input[name="state"]').value = "";
+		document.querySelector('input[name="zip"]').value = "";
+		document.querySelector('input[name="country"]').value = "";
+	  }
+	}
+  </script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- jquery -->
+
+
+
+	<!-- bootstrap -->
+	<script src="/public/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="/public/assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="/public/assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="/public/assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="/public/assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="/public/assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="/public/assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="/public/assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="/public/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

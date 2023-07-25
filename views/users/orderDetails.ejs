@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+    <!-- title -->
+    <title>Order Details</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="/public/assets/css/all.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css">
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="/public/assets/css/owl.carousel.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="/public/assets/css/magnific-popup.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="/public/assets/css/animate.css">
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="/public/assets/css/meanmenu.min.css">
+    <!-- main style -->
+    <link rel="stylesheet" href="/public/assets/css/main.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="/public/assets/css/responsive.css">
+
+    <style>
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 100vh !important;
+            }
+        }
+
+        .horizontal-timeline .items {
+            border-top: 2px solid #ddd;
+        }
+
+        .horizontal-timeline .items .items-list {
+            position: relative;
+            margin-right: 0;
+        }
+
+        .horizontal-timeline .items .items-list:before {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+            top: 0;
+            margin-top: -5px;
+        }
+
+        .horizontal-timeline .items .items-list {
+            padding-top: 15px;
+        }
+
+        .track-order-outer {
+            justify-content: center;
+        }
+
+        .track-order {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .step {
+            flex: 1;
+            position: relative;
+        }
+
+        .step-button {
+            background-color: grey;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.5;
+            /* box-shadow: 0 0 6px 0 rgb(0, 128, 0,0.7); */
+
+        }
+
+        .step-button.active {
+            background-color: green;
+            box-shadow: 0 0 10px 2px rgb(0, 128, 0, 0.9);
+            animation: glowing 2s infinite;
+            opacity: 1;
+        }
+
+        @keyframes glowing {
+            0% {
+                box-shadow: 0 0 6px 0 rgb(0, 128, 0, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 10px 2px rgb(0, 128, 0, 0.9);
+            }
+
+            100% {
+                box-shadow: 0 0 6px 0 rgb(0, 128, 0, 0.7);
+            }
+        }
+
+        .icon-header-noti::after {
+            content: attr(data-notify);
+            font-family: Poppins-Regular;
+            font-size: 12px;
+            color: #fff;
+            line-height: 15px;
+            text-align: center;
+
+            display: block;
+            position: absolute;
+            top: -7px;
+            right: 0;
+            min-width: 15px;
+            height: 15px;
+            padding: 0 3px;
+            background-color: #717fe0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        <div class="site-logo">
+                            <a href="/home">
+                                <h5><span class="orange-text">NutriFreshFruit</span></h5>
+                            </a>
+                        </div>
+                        <!-- logo -->
+
+                        <!-- menu start -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li class="current-list-item">
+                                    <a href="/home">Home</a>
+                                </li>
+
+                                <li>
+                                    <a href="/shop">Shop</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/shop">Shop</a></li>
+                                        <li><a href="/cart">Cart</a></li>
+                                        <li><a href="/myOrder">My Orders</a></li>
+                                    </ul>
+                                <li class="profile-logo">
+                                    <a href="/profile">
+                                        <img src="/public/images/profile2.png" alt="User Profile Logo"
+                                            class="img-fluid rounded-circle" style="width: 16px; height: 17px;">
+                                    </a>
+                                </li>
+                                </li>
+
+
+                            </ul>
+                        </nav>
+
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                        <!-- menu end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header -->
+
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Fresh and Organic</p>
+                        <h1>Order Details</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+
+    <section class="" style="background-color: #eee;">
+        <div class="container-fluid py-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
+
+                        <div class="card-body p-5">
+                            <!-- Rest of the section content -->
+
+                            <p class="lead fw-bold mb-5" style="color: #f37a27;">Order Placed</p>
+
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <p class="small text-muted mb-1">Date</p>
+                                    <p>
+                                        <%= orders.dateOrdered.toLocaleDateString() %>
+                                    </p>
+                                </div>
+                                <div class="col mb-3">
+                                    <p class="small text-muted mb-1" style="margin-left: 200px;">Order No.</p>
+                                    <p style="margin-left: 200px;">
+                                        <%= orders._id %>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Rest of the code above -->
+                            <% if (orders && orders.orderItems && orders.orderItems.length> 0) { %>
+                                <% for (let i=0; i < orders.orderItems.length; i++) { %>
+                                    <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-3">
+                                                <!-- Add an image space here -->
+                                                <% if (orders.orderItems[i].productId &&
+                                                    orders.orderItems[i].productId.productImage &&
+                                                    orders.orderItems[i].productId.productImage[0]) { %>
+                                                    <img src="/public/images/<%= orders.orderItems[i].productId.productImage[0] %>"
+                                                        alt="Image Space" style="height: 100px; width: 100px;">
+                                                    <% } else { %>
+                                                        <!-- Use a default image when productImage is not available -->
+                                                        <img src="/public/images/default-image.jpg" alt="Default Image"
+                                                            style="height: 100px; width: 100px;">
+                                                        <% } %>
+                                            </div>
+                                            <div class="col-md-8 col-lg-9">
+                                                <!-- Rest of the code for order items -->
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <% if (orders.orderItems[i].productId &&
+                                                            orders.orderItems[i].productId.productName) { %>
+                                                            <p>
+                                                                <%= orders.orderItems[i].productId.productName %>
+                                                            </p>
+                                                            <div> Price: <%= orders.orderItems[i].productId.price %>
+                                                            </div>
+                                                            <% } else { %>
+                                                                <p>Product Name (Name not available)</p>
+                                                                <div>Price (Price not available)</div>
+                                                                <% } %>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3">
+                                                        <% if (orders.orderItems[i].total) { %>
+                                                            <p>
+                                                                <%= orders.orderItems[i].total %>
+                                                            </p>
+                                                            <% } else { %>
+                                                                <p>Total (Not available)</p>
+                                                                <% } %>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3">
+                                                        <% if (orders.orderItems[i].kg) { %>
+                                                            <p>kg : <%= orders.orderItems[i].kg %>
+                                                            </p>
+                                                            <% } else { %>
+                                                                <p>kg : Not available</p>
+                                                                <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                        <% } else { %>
+                                            <!-- Handle case when orders or orderItems are not available -->
+                                            <div class="alert alert-info">No order items found.</div>
+                                            <% } %>
+
+                                                <!-- Rest of the code below -->
+
+                                                <div class="row my-3">
+                                                    <div class="col-md-6 col-lg-4 d-flex align-items-center">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="mr-2">
+                                                                <span style="white-space: nowrap;"><b>Payment
+                                                                        Method:</b></span>
+                                                            </div>
+                                                            <div>
+                                                                <p>
+                                                                    <%= orders.paymentMethod %>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="col-md-6 col-lg-4 d-flex align-items-center justify-content-end">
+                                                        <div class="d-flex align-items-center ml-auto">
+                                                            <div class="mr-2">
+                                                                <span style="white-space: nowrap;"><b>Total
+                                                                        Amount:</b></span>
+                                                            </div>
+                                                            <div>
+                                                                <p class="lead fw-bold mb-0" style="color: #f37a27;">
+                                                                    <%= orders.grandTotal %>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <p class="lead fw-bold mb-4 pb-2"
+                                                    style="color: #f37a27; margin-left: 400px;">Tracking Order</p>
+
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+
+                                                        <div class="horizontal-timeline">
+
+                                                            <div class="track-order-outer">
+                                                                <div class="track-order" style="padding-left: 80px;">
+                                                                    <div class="step">
+                                                                        <button
+                                                                            class="step-button <%= orders.status === 'pending' ? 'active' : '' %>">
+                                                                            Ordered
+                                                                        </button>
+                                                                        <div
+                                                                            class="step-line <%= orders.status === 'shipped' || orders.status === 'delivered' ? 'active' : '' %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="step">
+                                                                        <button
+                                                                            class="step-button <%= orders.status === 'shipped'? 'active' : '' %>">
+                                                                            Shipping
+                                                                        </button>
+                                                                        <div
+                                                                            class="step-line <%= orders.status === 'delivered' ? 'active' : '' %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="step">
+                                                                        <button
+                                                                            class="step-button <%= orders.status === 'delivered' ? 'active' : '' %>">
+                                                                            Delivered
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-lg-12">
+                                                        <a href="#"
+                                                            onclick="showCancelConfirmation(event, '<%= orders._id %>')"
+                                                            class="text-white no-underline">
+                                                            <button class="btn btn-danger">Cancel Order</button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+    <!-- Logo carousel -->
+    <div class="logo-carousel-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="logo-carousel-inner">
+                        <!-- Logo carousel items -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <div class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box about-widget">
+                        <h2 class="widget-title">About us</h2>
+                        <p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                            doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box get-in-touch">
+                        <h2 class="widget-title">Get in Touch</h2>
+                        <ul>
+                            <li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+                            <li>support@NutriFreshFruit.com</li>
+                            <li>+00 111 222 3333</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box pages">
+                        <h2 class="widget-title">Pages</h2>
+                        <ul>
+                            <li><a href="/home">/Home</a></li>
+                            <li><a href="services.html">Shop</a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box subscribe">
+                        <h2 class="widget-title">Subscribe</h2>
+                        <p>Subscribe to our mailing list to get the latest updates.</p>
+                        <form action="/home">
+                            <input type="email" placeholder="Email">
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p>Copyrights &copy; 2019 - <a href="">sharbas mohammed</a>, All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- end copyright -->
+
+    <!-- jquery -->
+    <script src="/public/assets/js/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap -->
+    <script src="/public/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- count down -->
+    <script src="/public/assets/js/jquery.countdown.js"></script>
+    <!-- isotope -->
+    <script src="/public/assets/js/jquery.isotope-3.0.6.min.js"></script>
+    <!-- waypoints -->
+    <script src="/public/assets/js/waypoints.js"></script>
+    <!-- owl carousel -->
+    <script src="/public/assets/js/owl.carousel.min.js"></script>
+    <!-- magnific popup -->
+    <script src="/public/assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- mean menu -->
+    <script src="/public/assets/js/jquery.meanmenu.min.js"></script>
+    <!-- sticker js -->
+    <script src="/public/assets/js/sticker.js"></script>
+    <!-- main js -->
+    <script src="/public/assets/js/main.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        function showCancelConfirmation(event, orderId) {
+            event.preventDefault();
+
+            swal({
+                title: "Cancel Order",
+                text: "Are you sure you want to cancel this order?",
+                icon: "warning",
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
+            }).then((confirmCancel) => {
+                if (confirmCancel) {
+                    // Proceed with the cancel order logic here
+                    window.location.href = "/cancelOrder?id=" + orderId;
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .sidebar {
+      background-color: #f8f9fa;
+      height: 100vh;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .sidebar a:hover {
+      color: #0069d9;
+    }
+
+    .logout {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+    }
+
+    .add-product-container {
+      background-color: #f8f9fa;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+
+    .add-product-container h2 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+        <div class="add-product-container">
+          <h2>Edit Product</h2>
+       
+          <form action="/admin/editProducts" method="post">
+            <div class="form-group">
+                <input type="text" name="id" value="<%= products._id  %>" hidden>
+              <label for="product-name">Product Name</label>
+              <input type="text" name="productname" class="form-control" id="product-name" value="<%=products.productName %>">
+            </div>
+            <div class="form-group">
+              <label for="product-description">Description</label>
+              <textarea class="" name="description" id="" placeholder="Enter description" rows="3" value=""><%=products.productDescription%></textarea>
+            </div>
+            <div class="form-group">
+              <label for="product-image">Image</label>
+              <input type="file" name="image" class="form-control-file" id="product-image" value="<%=products.productImage  %>">
+            </div>
+            <div class="form-group">
+              <label for="product-category">Category</label>
+              <select name="category" class="form-control" id="product-category" value="<%= products.categoryName %>">
+               
+              <% for(let i=0;i<categories.length;i++) {%>
+               
+                <option><%= categories[i].categoryName%></option>
+               <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="product-price">Price</label>
+              <input type="number" name="price" class="form-control" id="product-price" value="<%=products.price  %>" min="0">
+            </div>
+            <div class="form-group">
+              <label for="product-kg">Kg</label>
+              <input type="number" name="kg" class="form-control" id="product-kg"  value="<%=products.kg  %>" min="0">
+            </div>
+            <div class="form-group">
+              <label for="product-offer">Product Offer</label>
+              <input type="number" name="ProductOffer" class="form-control" id="product-offer" value="<%=products.offerPrice  %>" min="0">
+            </div>
+            <!-- <div class="form-group">
+              <label for="product-status">Status</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusactive" id="product-status-active" value="active">
+                <label class="form-check-label" for="product-status-active">
+                  Active
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusinactive" id="product-status-inactive" value="inactive">
+                <label class="form-check-label" for="product-status-inactive">
+                  Inactive
+                </label>
+              </div>
+            </div> -->
+            <button type="submit" class="btn btn-primary">Edit Product</button>
+          </form>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+

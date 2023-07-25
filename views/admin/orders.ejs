@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    .container-fluid {
+      padding: 0;
+    }
+
+    .sidebar {
+  background-color: #333;
+  color: #fff;
+  border-right: 2px solid #6c757d;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #6c757d;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: #17a2b8;
+    }
+
+    .main-content {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    .navbar {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .navbar .nav-link {
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-link:hover {
+      color: #17a2b8;
+    }
+
+    table {
+      background-color: #f8f9fa;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table th,
+    table td {
+      background-color: #fff;
+      color: #333;
+      padding: 8px;
+      text-align: center;
+    }
+
+    table th {
+      font-weight: bold;
+    }
+
+    table td button {
+      margin-right: 3px;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    .dataTables_filter {
+      margin-bottom: 10px;
+    }
+
+    .dataTables_filter input {
+      height: 30px;
+      border-radius: 3px;
+      width: 150px; /* Adjust the width as needed */
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 576px) {
+      table {
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+    }
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/home">NutriFreshrFruit</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+       
+
+        <div class="table-responsive">
+          <table class="table" id="order-table">
+            <thead>
+              <tr>
+                <th scope="col">Number</th>
+                <th scope="col">Order Details</th>
+                <th scope="col">Product Details</th>
+                <th scope="col">Kg</th>
+                <th scope="col">Price</th>
+                <th scope="col">User Details</th>
+                <th scope="col">User Address</th>
+                <th scope="col">Order Status</th>
+                <th scope="col">Action</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+        
+            <tbody>
+              <% for (let i = 0; i < orders.length; i++) { %>
+     
+                  <tr>
+                    <td> <% for(let j=0;j<orders[i].orderItems.length;j++){ %>
+                    <% if(j==0){ %>
+                      <div>
+                        <p><%= i+1  %></p>
+                      </div>
+                      <% } %><% } %>
+                    </td>
+                    <td>
+                      <%for(let j=0;j<orders[i].orderItems.length;j++){%>
+                      <% if(j==0){%>
+                      <div>
+                        <p style="font-weight: 700;">Order Date: <%=orders[i].dateOrdered.toLocaleDateString()%></p>
+      
+                      </div>
+                       <%}%> <%}%>
+                    </td>
+                    <td>
+                      <% for(let j=0;j<orders[i].orderItems.length;j++){ %>
+                        <div class="d-flex align-items-center">
+                      <img src="/public/images/<%= orders[i].orderItems[j].productId.productImage[0] %>" alt="Product Image" style="width: 40px; height: 40px;">
+                      <div class="ms-3">
+                      <%= orders[i].orderItems[j].productId.productName %>
+                    </div>
+                  </div>
+                      <% } %>
+                    
+                    </td>
+                   
+                    <td>   <% for(let j=0;j<orders[i].orderItems.length;j++){ %>
+                      <div>
+                        <p> <%= orders[i].orderItems[j].kg %></p>
+                      </div>
+                     
+                      <% } %>
+                    </td>
+                    <td>
+                      <% for(let j=0;j<orders[i].orderItems.length;j++){ %>
+                        <div>
+                          <p>      <%= orders[i].orderItems[j].total %></p>
+                        </div>
+                  
+                        <% } %>
+                      </td>
+                    <td>
+                     
+                        <div>
+                          <p>Email: <%= orders[i].email %></p>
+                          </div>
+                          </div>
+                          <p>  Mobile: <%= orders[i].phone %></p>
+                        </div>
+                    
+                      </td>
+                   
+            
+                    <td>
+                    
+                      <%= orders[i].address %>
+                     
+                    </td>
+                    <td><%= orders[i].status %></td>
+                    
+                    <td>
+                      <a style="background-color: rgb(39, 129, 133); color: #fff" href="#" class="btn status-button" data-order-id=<%= orders[i]._id %>>Status</a>
+                    </td>
+                    
+               
+                  <td>
+                    <div><button class="btn bg-danger text-light"><a class="text-light text-decoration-none" href="/admin/cancelorder?orderId=<%=orders[i]._id%>">Cancel</a></button></div>
+                  </td>
+             
+              <% } %>
+          
+               <!-- }  -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+<div id="changeStatusModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Change Order Status</h3>
+    <form id="statusForm" action="/admin/updateOrderStatus" method="post">
+      <div class="mb-3">
+        <label for="status">Status:</label>
+        <select class="form-select" id="status" name="status">
+          <option value="pending">Pending</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+        
+        </select>
+      </div>
+      <input type="text" name="orderId" id="orderId" hidden>  
+      <div class="buttons">
+        <button type="submit" class="btn btn-primary" >Save</button>
+        <button type="button" class="btn btn-secondary" id="cancelButton" >Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="returnRequestModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Return Request</h2>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to accept this return request?</p>
+    </div>
+    <div class="modal-footer">
+      <form id="returnRequestForm">
+        <input type="hidden" id="returnAction" name="action" />
+        <input type="hidden" id="returnOrderId" name="orderId" />
+        <button type="button" class="btn btn-decline" onclick="handleReturnRequest('request-denied')">Decline</button>
+        <button type="button" class="btn btn-accept" onclick="handleReturnRequest('returned')">Accept</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script> 
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha384-UqzqXxBySbx7mM/SMiFm9LxVukus07Vj6j8yDdPcgwZzQNfC5DnBqmcvQ6R+79D9" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script> -->
+
+
+
+
+
+<!-- <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
+
+<script>
+  $(document).ready(function() {
+    $('.table').DataTable();
+  });
+
+
+</script>
+<script>
+  // Existing code
+  // ...
+
+  // Event listener for status button click
+  var modal = document.getElementById('changeStatusModal');
+  var cancelButton = document.getElementById('cancelButton');
+// Event listener for status button click
+var statusButtons = document.getElementsByClassName('status-button');
+for (var i = 0; i < statusButtons.length; i++) {
+  statusButtons[i].addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    var orderId = this.getAttribute('data-order-id');
+   
+    openChangeStatusModal(orderId);
+  });
+}
+cancelButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default button behavior
+    closeChangeStatusModal();
+  });
+// Function to open the modal
+function openChangeStatusModal(orderId) {
+  modal.style.display = 'block';
+  document.getElementById('statusForm').setAttribute('data-order-id', orderId);
+  document.getElementById('orderId').value = orderId;
+  console.log(document.getElementById('orderId').value)
+
+
+}
+
+// Save order status
+// Save order status
+function saveOrderStatus() {
+  var status = document.getElementById('status').value;
+  var orderId = document.getElementById('statusForm').getAttribute('data-order-id');
+  console.log(typeof orderId)
+  // TODO: Implement logic to save the order status
+  document.getElementById('orderId').value = orderId;
+  console.log('Selected status:', status);
+  console.log('Order ID:', orderId);
+  closeChangeStatusModal();
+}
+
+
+
+function closeChangeStatusModal() {
+    modal.style.display = 'none';
+  }
+</script>
+
+
+
+<script>
+  // Existing code
+  // ...
+
+  <!-- // Get a reference to the return request modal
+  var returnRequestModal = document.getElementById('returnRequestModal');
+
+   Event listener for return request button click
+  var returnRequestButtons = document.getElementsByClassName('cancel-request-button');
+  for (var i = 0; i < returnRequestButtons.length; i++) {
+    returnRequestButtons[i].addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+      var orderId = this.getAttribute('data-order-id');
+      openReturnRequestModal(orderId);
+    });
+  } 
+
+   Function to open the return request modal
+  function openReturnRequestModal(orderId) {
+    returnRequestModal.style.display = 'block';
+    document.getElementById('returnOrderId').value = orderId;
+  }
+
+   Function to handle return request
+  function handleReturnRequest(action) {
+    document.getElementById('returnAction').value = action;
+    var returnOrderId = document.getElementById('returnOrderId').value;
+    // TODO: Implement logic to handle return request
+    console.log('Return action:', action);
+    console.log('Return order ID:', returnOrderId);
+    $.ajax({
+        url: '/admin/return-request',
+        method: 'POST',
+        data: {
+         action:action,
+         id:returnOrderId
+        },
+        success: function(response) {
+          console.log('successful')
+          closeReturnRequestModal();
+         },
+        error: function(error) {
+          // Handle the error response
+          res.send("payment is not successful")
+        }
+      })
+   
+  }
+
+  // Function to close the return request modal
+  function closeReturnRequestModal() {
+    returnRequestModal.style.display = 'none';
+  }
+</script>
+
+
+</body>
+
+</html>

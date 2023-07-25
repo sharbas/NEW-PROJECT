@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- title -->
+	<title>Cart</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="/public/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="/public/assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="/public/assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="/public/assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="/public/assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="/public/assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="/public/assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="/public/assets/css/responsive.css">
+
+	<style>
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #f5f0f0;
+  color: #fa0303;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.icon-header-noti::after {
+  content: attr(data-notify);
+  font-family: Poppins-Regular;
+  font-size: 12px;
+  color: #fff;
+  line-height: 15px;
+  text-align: center;
+
+  display: block;
+  position: absolute;
+  top: -7px;
+  right: 0;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  background-color: #717fe0;
+}
+.delete-button:hover {
+  background-color: #f37922;
+}
+
+.delete-button i {
+  font-size: 18px;
+}
+
+	</style>
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="/home">
+								<h5><span class="orange-text">NutriFreshFruit</span></h5>
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+							  <li class="current-list-item">
+								<a href="/home">Home</a>
+							  </li>
+							  <li>
+								<a href="/shop">Shop</a>
+								<ul class="sub-menu">
+								  <li><a href="/shop">Shop</a></li>
+								
+								 
+								  <li><a href="/cart">Cart</a></li>
+								  <li><a href="/coupon">Coupons</a></li>
+								  <li><a href="/myOrder">my orders</a></li>
+								</ul>
+							  </li>
+							  <li>
+								<div>
+									<% if (!userCartData || !userCartData.product) { %>
+										<div class="header-icons icon-header-noti" style="display: flex; align-items: center;" data-notify="0">
+											<a class="shopping-cart" href="/cart">
+												<i class="fas fa-shopping-cart"></i>
+											</a>
+										</div>
+									<% } else { %>
+										<div class="header-icons icon-header-noti" style="display: flex; align-items: center;" data-notify="<%= userCartData.product.length %>">
+											<a class="shopping-cart" href="/cart">
+												<i class="fas fa-shopping-cart"></i>
+											</a>
+										</div>
+									<% } %>
+								</div>
+								
+							  </li>
+							</ul>
+						  </nav>
+						
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<% if(!userCartData|| userCartData===undefined||userCartData===null) {%>
+					<p>
+						Cart Empty
+					</p>
+					<%}else{%>
+					
+						
+						
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">kg</th>
+									<th class="product-total">Total</th>
+								</tr>
+							</thead>
+							
+							
+							<tbody>
+								
+								<%for(let i=0;i<userCartData.product.length;i++){%>
+									<tr class="table-body-row">
+										<td class="product-remove">
+											<a href="#" onclick="showDeleteConfirmation(event, <%=i%>)" class="delete-button">
+											  <i class="fas fa-trash"></i>
+											</a>
+										  </td>
+										  
+										<td class="product-image"><img src="/public/images/<%= userCartData.product[i].productId.productImage[0]%> " alt=""></td>
+										<td class="product-name"><%= userCartData.product[i].productId.productName  %></td>
+										<td class="product-price">&#8377;<%= userCartData.product[i].productId.offerPrice  %></td>
+										<td class="product-quantity">
+
+											<div class="input-group">
+												<span class="input-group-btn">
+													<button class="btn btn-default" onclick="decrementCount(<%=i%>)"
+														type="button">
+														-
+													</button>
+												</span>
+												<span type="text" id="quantity-<%=i%>" class="form-control" value="" readonly ><%= userCartData.product[i].kg %></span>
+												<span class="input-group-btn">
+													<button class="btn btn-default" onclick="incrementCount(<%=i%>)"
+													
+														type="button">
+														+
+													</button>
+												</span>
+											</div>
+
+										  </td>
+										  
+									    <td class="product-total" >
+										<span id="productTotal-<%=i%>"><%= ProductPrice[i] %></span> </td>
+									</tr>
+							<h1></h1>
+								<%}%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+
+				
+					
+						<table class="total-table" style="margin-top: px;">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr class="total-data">
+									<td><strong>Subtotal: </strong></td>
+									<td>$500</td>
+								</tr> -->
+								<tr class="total-data">
+									<td><strong>Shipping: </strong></td>
+									<td> Free </td>	
+								</tr>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td id="grandTotal">&#8377;<%= totalPrice  %></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<div class="cart-buttons">
+							
+							<a href="/checkout" class="boxed-btn black">Check Out</a>
+						</div>
+					</div>
+				</div>
+				<%}%>
+			</div>
+		</div>
+	</div>
+	<!-- end cart -->
+
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/1.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/2.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/3.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/4.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="/public/assets/img/company-logos/5.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end logo carousel -->
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+							<li>support@NutriFreshFruit.com</li>
+							<li>+00 111 222 3333</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Pages</h2>
+						<ul>
+							<li><a href="/home">Home</a></li>
+							
+							<li><a href="services.html">Shop</a></li>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates.</p>
+						<form action="/home">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+	
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="">sharbas mohammed</a>,  All Rights Reserved.<br>
+					
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+	
+	<!-- jquery -->
+	<script src="/public/assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="/public/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="/public/assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="/public/assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="/public/assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="/public/assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="/public/assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="/public/assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="/public/assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="/public/assets/js/main.js"></script>
+
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>// Fetch the cart count from the backend
+		function fetchCartCount() {
+		  // Make an AJAX request to your backend to fetch the cart count
+		  // Replace this with your actual API endpoint or logic
+		  $.ajax({
+			url: "/api/cart/count",
+			type: "GET",
+			success: function(response) {
+			  // Update the data-notify attribute value
+			  $('.header-icons').attr('data-notify', response.count);
+			},
+			error: function() {
+			  console.log("Error fetching cart count");
+			}
+		  });
+		}
+		
+		// Call the fetchCartCount function initially to populate the cart count
+		fetchCartCount();
+		
+		// You can also call fetchCartCount function after adding/removing products from the cart to update the count dynamically.
+		</script>
+<script>
+  function showDeleteConfirmation(event, index) {
+    event.preventDefault();
+
+    swal({
+      title: "Delete Item",
+      text: "Are you sure you want to delete this item?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    }).then((deleteItem) => {
+      if (deleteItem) {
+        // Proceed with the delete item logic here
+        window.location.href = "/deleteitem?index=" + index;
+      }
+    });
+  }
+</script>
+
+	//script of the single product for updation
+    <script>
+		// Function to handle count increment
+		function incrementCount(i) {
+		
+			var quantityElement=$('#quantity-'+i)
+			var quantity=parseInt(quantityElement.text())
+			if(quantity<=6){
+				quantity+=1
+				quantityElement.text(quantity)
+				updateQuantity(quantity,i)
+				
+			}
+			
+
+			
+
+		}
+		
+	function	updateQuantity(quantity,i){
+        
+		$.ajax({
+				type: "POST",
+				url: "/updatecart", // Replace with the actual endpoint to update count
+				data: {
+					productId: i,
+					count: quantity,
+				},
+				success: function (response) {
+					// Handle success response
+					const total=$('#productTotal-'+i)
+					total.text(response.total)
+					const grandTotal=$('#grandTotal')
+					grandTotal.text('₹' + response.grandTotal)
+					console.log("Count updated successfully");
+				},
+				error: function (error) {
+					// Handle error
+					console.error("Error updating count:", error);
+				},
+			});
+
+
+	}
+		
+		// Send AJAX request to update the count in the database
+		
+		
+
+		// Function to handle count decrement
+		function decrementCount(i) {
+			var quantityElement=$('#quantity-'+i)
+			var quantity=parseInt(quantityElement.text())
+			if(quantity>1){
+				quantity-=1
+				quantityElement.text(quantity)
+				updateQuantity(quantity,i)
+			}
+
+		}
+
+			// Send AJAX request to update the count in the database
+			// $.ajax({
+			// 	type: "POST",
+			// 	url: "/updateKg", // Replace with the actual endpoint to update count
+			// 	data: {
+			// 		productId: productId,
+			// 		count: -count,
+			// 	},
+			// 	success: function (response) {
+			// 		// Handle success response
+			// 		console.log("Count updated successfully");
+			// 	},
+			// 	error: function (error) {
+			// 		// Handle error
+			// 		console.error("Error updating count:", error);
+			// 	},
+			// });
+		
+	</script>
+
+</body>
+</html>

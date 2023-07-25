@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      margin: 0;
+    }
+    
+    .navbar {
+      background-color: #333;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      width: 100%;
+      margin: 0;
+    }
+
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar {
+      background-color: #333;
+   
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar a:hover {
+      color: #0069d9;
+    }
+
+    .logout {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+    }
+
+    /* Custom styling for the coupon form */
+    .coupon-form {
+      padding: 20px;
+      background-color: #f5f5f5;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .coupon-form input,
+    .coupon-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .coupon-form button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .coupon-form button:hover {
+      background-color: #0069d9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="">
+    <nav class="navbar">
+      <a href="/admin/home" class="navbar-logo">NutriFreshFruit</a>
+      <a href="/admin/logout">Logout</a>
+    </nav>
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+
+
+        <div class="col-md-10">
+          <div class="coupon-form">
+            <h2>Add Coupon</h2>
+            <form action="/admin/addCoupon" method="post" enctype="multipart/form-data" onsubmit="showConfirmation(event)">
+              <label for="coupon-code">Coupon Code:</label>
+              <input type="text" id="coupon-code" name="couponCode" placeholder="Enter coupon code" required>
+        
+              <label for="coupon-discount">Discount Amount:</label>
+              <input type="number" id="coupon-discount" name="couponDiscount" placeholder="Enter discount amount" required min="0" max="40">
+        
+              <label for="coupon-start-date">Coupon Starting Date:</label>
+              <input type="date" id="coupon-start-date" name="couponStart" required>
+        
+              <label for="coupon-expire-date">Coupon Expiry Date:</label>
+              <input type="date" id="coupon-expire-date" name="couponExpire" required>
+        
+              <label for="coupon-min-amount">Minimum Amount:</label>
+              <input type="number" id="coupon-min-amount" name="couponMinAmount" placeholder="Enter minimum amount" required min="500" >
+        
+              <label for="coupon-description">Coupon Description:</label>
+              <textarea id="coupon-description" name="couponDescription" placeholder="Enter coupon description" required></textarea>
+        
+              <label for="coupon-image">Upload Coupon Image:</label>
+              <input type="file" id="coupon-image" name="couponImage" accept="image/*" required>
+        
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- Main content goes here -->
+        <!-- main content end -->
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function showConfirmation(event) {
+    event.preventDefault(); // Prevent form submission
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to submit this coupon?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, submit it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Submit the form after confirmation
+        event.target.submit();
+      }
+    });
+  }
+</script>
+
+  <script>
+    // Get the current date
+    var currentDate = new Date().toISOString().split('T')[0];
+  
+    // Set the minimum date for coupon starting date input
+    document.getElementById("coupon-start-date").min = currentDate;
+  
+    // Set the minimum date for coupon expiry date input
+    document.getElementById("coupon-expire-date").min = currentDate;
+  </script>
+
+</body>
+
+</html>

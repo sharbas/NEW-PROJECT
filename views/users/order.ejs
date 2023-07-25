@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>orders!</title>
+
+	<!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="/public/assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="/public/assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="/public/assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="/public/assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="/public/assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="/public/assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="/public/assets/css/responsive.css">
+
+<style>
+ .gradient-custom {
+/* fallback for old browsers */
+background: #f6f6f5;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient #f6f6f5(to top left, (205, 156, 242, 1), rgba(246, 243, 255, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to top left, #f6f6f5(205, 156, 242, 1), rgba(246, 243, 255, 1))
+}
+.icon-header-noti::after {
+  content: attr(data-notify);
+  font-family: Poppins-Regular;
+  font-size: 12px;
+  color: #fff;
+  line-height: 15px;
+  text-align: center;
+
+  display: block;
+  position: absolute;
+  top: -7px;
+  right: 0;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  background-color: #717fe0;
+}
+
+
+</style>
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="/home">
+								<h5><span class="orange-text">NutriFreshFruit</span></h5>
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="current-list-item"><a href="/home">Home</a>
+								</li>
+								
+								<li><a href="/shop">Shop</a>
+									<ul class="sub-menu">
+										<li><a href="/shop">Shop</a></li>
+									
+								
+										<li><a href="/cart">Cart</a></li>
+										<li><a href="/myOrder">my orders</a></li>
+									</ul>
+								</li>
+								<li>
+									<div class="profile-logo" style="margin-left: 25px;"> <!-- Added inline style -->
+									  <a href="/profile"> <img src="/public/images/profile2.png" alt="User Profile Logo" class="img-fluid rounded-circle" style="width: 16px; height: 17px;"></a>
+									 
+									</div>
+								  </li>
+								<!-- <li>
+									<div class="header-icons">
+										<a class="shopping-cart" href="/cart"><i class="fas fa-shopping-cart"></i></a>
+									
+									</div>
+								</li> -->
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+
+    
+		<!-- breadcrumb-section -->
+		<div class="breadcrumb-section breadcrumb-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 text-center">
+						<div class="breadcrumb-text">
+							<p>Fresh and Organic</p>
+							<h1>My Orders</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end breadcrumb section -->
+		
+		<% if (orders && orders.length > 0) { %>
+			<% for (let i = 0; i < orders.length; i++) { %>
+			  <div class="container">
+				<section class="h-100 gradient-custom">
+				  <div class="container py-5 h-100">
+					<div class="row d-flex justify-content-center align-items-center h-100">
+					  <div class="col-lg-10 col-xl-8">
+						<div class="card" style="border-radius: 10px;">
+						  <div class="card-header px-4 py-5">
+							<% if (orders[i].name) { %>
+							  <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #fc6711;"><%= orders[i].name %></span>!</h5>
+							<% } else { %>
+							  <h5 class="text-muted mb-0">Thanks for your Order!</h5>
+							<% } %>
+						  </div>
+						  <div class="card-body p-4">
+							<div class="d-flex justify-content-between align-items-center mb-4">
+							  <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
+							  	  <!-- Add the viewDetails button and data-toggle attribute to trigger the modal -->
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderDetailsModal<%= i %>">
+										View Details
+									  </button>
+							</div>
+							<div id="canceled-order" style="color: red; padding: 10px;">
+							  <% if (orders[i].status == 'canceled'){ %>
+								<p style="color: red;"><b>This order is cancelled</b></p>
+							  <% } %>
+							</div>
+							<% if (Array.isArray(orders[i].orderItems) && orders[i].orderItems.length > 0) { %>
+							  <% for (let j = 0; j < orders[i].orderItems.length; j++) { %>
+								<% const orderStatus = orders[i].status; %>
+								<% if (orderStatus !== 'canceled') { %>
+								  <a href="/viewOrderDetails?id=<%= orders[i]._id %>">
+									<div class="card shadow-0 border mb-4">
+									  <div class="card-body">
+										<div class="row">
+										  <!-- ... Order item details ... -->
+										  <div class="col-md-4 col-lg-3">
+											<% if (orders[i].orderItems[j].productId &&
+											  orders[i].orderItems[j].productId.productImage &&
+											  orders[i].orderItems[j].productId.productImage[0]) { %>
+											  <img src="/public/images/<%= orders[i].orderItems[j].productId.productImage[0] %>"
+												alt="Product Image" style="height: 100px; width: 100px;">
+											<% } else { %>
+											  <img src="/public/images/default-image.jpg" alt="Default Image" style="height: 100px; width: 100px;">
+											<% } %>
+									
+										  </div>
+										  <div class="col-md-8 col-lg-9">
+											<p><%= orders[i].orderItems[j].productId.productName %></p>
+											<div>Price: &#8377;<%= orders[i].orderItems[j].productId.price %></div>
+											<p>Total:&#8377; <%= orders[i].orderItems[j].total %></p>
+											<p>Kg: <%= orders[i].orderItems[j].kg %></p>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </a>
+								<% } else { %>
+								  <div class="card shadow-0 border mb-4">
+									<div class="card-body">
+									  <div class="row">
+										<!-- ... Order item details ... -->
+										<div class="col-md-4 col-lg-3">
+										  <% if (orders[i].orderItems[j].productId &&
+											orders[i].orderItems[j].productId.productImage &&
+											orders[i].orderItems[j].productId.productImage[0]) { %>
+											<img src="/public/images/<%= orders[i].orderItems[j].productId.productImage[0] %>"
+											  alt="Product Image" style="height: 100px; width: 100px;">
+										  <% } else { %>
+											<img src="/public/images/default-image.jpg" alt="Default Image" style="height: 100px; width: 100px;">
+										  <% } %>
+									
+										</div>
+										<div class="col-md-8 col-lg-9">
+										  <p><%= orders[i].orderItems[j].productId.productName %></p>
+										  <div>Price: &#8377;<%= orders[i].orderItems[j].productId.price %></div>
+										  <p>Total:&#8377; <%= orders[i].orderItems[j].total %></p>
+										  <p>Kg: <%= orders[i].orderItems[j].kg %></p>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								<% } %>
+							  <% } %>
+							<% } else { %>
+							  <!-- Handle case when orderItems array is empty or not available -->
+							  <p>No order items found.</p>
+							<% } %>
+							<!-- Rest of the code for displaying other order details -->
+							<% if (orders[i].paymentMethod) { %>
+							  <div class="d-flex justify-content-between pt-2">
+								<p class="text-muted mb-0"><span class="fw-bold me-4">Payment Method:</span><%= orders[i].paymentMethod %></p>
+							  </div>
+							<% } else { %>
+							  <p>No payment method found.</p>
+							<% } %>
+		  
+							<div class="d-flex justify-content-between">
+							  <% if (orders[i].dateOrdered) { %>
+								<p class="text-muted mb-0">Order Date: <%= orders[i].dateOrdered.toLocaleDateString() %></p>
+							  <% } else { %>
+								<p>No order date found.</p>
+							  <% } %>
+							</div>
+		  
+							<div class="d-flex justify-content-between mb-5">
+							  <p class="text-muted mb-0"><span class="fw-bold me-4">Order ID:</span><%= orders[i]._id %></p>
+							</div>
+		  
+
+
+							
+							<% let totalPaid = 0; %>
+							<% for (let j = 0; j < orders[i].orderItems.length; j++) { %>
+							  <% totalPaid += orders[i].orderItems[j].total; %>
+							<% } %>
+							<div class="card-footer border-0 px-4 py-5" style="background-color: #eb722c; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+							  <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total paid: <span class="h2 mb-0 ms-2">&#8377;<%= totalPaid %></span></h5>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</section>
+			  </div>
+			<% } %>
+		  <% } else { %>
+			<!-- Handle case when 'orders' array is empty or not available -->
+			<div class="container">
+			  <section class="h-100 d-flex justify-content-center align-items-center">
+				<div class="text-center">
+				  <h3>No orders found.</h3>
+				  <p class="lead">You haven't placed any orders yet.</p>
+				  <p class="text-muted">Start shopping now and add products to your cart!</p>
+				  <a href="/shop" class="btn btn-success btn-lg">Shop Now</a>
+				</div>
+			  </section>
+			</div>
+		  <% } %>
+	
+		
+		  <!-- The Modal Content -->
+		 
+
+<% for (let i = 0; i < orders.length; i++) { %>
+  <!-- The Modal -->
+  <div class="modal fade" id="orderDetailsModal<%= i %>" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <!-- The Modal Content -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Display order details here -->
+          <p><strong>Date:</strong> <%= orders[i].dateOrdered.toLocaleDateString() %></p>
+          <p><strong>Payment Method:</strong> <%= orders[i].paymentMethod || 'N/A' %></p>
+          <p><strong>User Name:</strong> <%= orders[i].name || 'N/A' %></p>
+          <p><strong>User Country:</strong> <%= orders[i].address || 'N/A' %></p>
+
+          <!-- Table for displaying order items -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Offer Price</th>
+                <th>Kg</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let j = 0; j < orders[i].orderItems.length; j++) { %>
+                <tr>
+                  <td><%= orders[i].orderItems[j].productId.productName %></td>
+                  <td>&#8377;<%= orders[i].orderItems[j].productId.price %></td>
+                  <td>
+                    <% if (orders[i].orderItems[j].productId.offerPrice) { %>
+                      &#8377;<%= orders[i].orderItems[j].productId.offerPrice %>
+                    <% } else { %>
+                      N/A
+                    <% } %>
+                  </td>
+                  <td><%= orders[i].orderItems[j].kg %></td>
+                  <td>&#8377;<%= orders[i].orderItems[j].total %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+
+          <!-- Display Grand Total -->
+          <p><strong>Grand Total:</strong> &#8377;<%= orders[i].grandTotal %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+
+
+
+		<!-- logo carousel -->
+		<div class="logo-carousel-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="logo-carousel-inner">
+							<div class="single-logo-item">
+								<img src="/public/assets/img/company-logos/1.png" alt="">
+							</div>
+							<div class="single-logo-item">
+								<img src="/public/assets/img/company-logos/2.png" alt="">
+							</div>
+							<div class="single-logo-item">
+								<img src="/public/assets/img/company-logos/3.png" alt="">
+							</div>
+							<div class="single-logo-item">
+								<img src="/public/assets/img/company-logos/4.png" alt="">
+							</div>
+							<div class="single-logo-item">
+								<img src="/public/assets/img/company-logos/5.png" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end logo carousel -->
+		
+		<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+							<li>support@NutriFreshFruit.com</li>
+							<li>+00 111 222 3333</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Pages</h2>
+						<ul>
+							<li><a href="/home">/Home</a></li>
+							<li><a href="services.html">Shop</a></li>
+					
+							
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates.</p>
+						<form action="/home">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+	
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="">sharbas mohammed</a>,  All Rights Reserved.</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+	
+	<!-- jquery -->
+	<script src="/public/assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="/public/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="/public/assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="/public/assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="/public/assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="/public/assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="/public/assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="/public/assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="/public/assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="/public/assets/js/main.js"></script>
+	
+	</body>
+</html>

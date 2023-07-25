@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Report</title>
+    <!-- Add your CSS stylesheets and Bootstrap CDN links here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+      .navbar {
+      background-color: #333;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar {
+      background-color: #333;
+      height: 500vh
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar a:hover {
+      color: #0069d9;
+    }
+
+    .logout {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+    }
+
+     /* Style for the custom alert box */
+     .custom-alert {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 4px;
+        z-index: 9999;
+    }
+
+    .custom-alert h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .custom-alert p {
+        margin: 0;
+    }
+
+    .custom-alert .btn-ok {
+        background-color: #3085d6;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    </style>
+</head>
+<body>
+  <div class="">
+    <nav class="navbar">
+      <a href="/admin/home" class="navbar-logo">NutriFreshFruit</a>
+      <a href="/admin/logout">Logout</a>
+    </nav>
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+    <div class="container">
+        <h1>Sales Report</h1>
+        <form action="/admin/generateSalesReport" method="GET">
+          <div class="form-group">
+              <label for="startDate">Start Date</label>
+              <input type="date" class="form-control" id="startDate" name="startDate" required>
+          </div>
+          <div class="form-group">
+              <label for="endDate">End Date</label>
+              <input type="date" class="form-control" id="endDate" name="endDate" required>
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="validateDates()">Generate Report</button>
+      </form>
+      
+      <!-- Custom alert box -->
+      <div class="custom-alert" id="customAlert">
+          <h3>Invalid Date Range</h3>
+          <p>End Date cannot be before the Start Date. Please select valid dates.</p>
+          <button class="btn-ok" onclick="hideAlert()">OK</button>
+      </div>
+
+        <hr>
+        <h3>Sales Report for <%= startDate %> to <%= endDate %></h3>
+        <% if (salesData.length === 0) { %>
+            <p>No sales data available for the selected date range.</p>
+        <% } else { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Total Amount</th>
+                        <th>KG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% salesData.forEach((data) => { %>
+                        <tr>
+                            <td><%= data.productName %></td>
+                            <td><%= data.totalAmount %></td>
+                            <td><%= data.kg %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <form action="/admin/salesReport/download" method="GET" id="downloadForm">
+                <input type="hidden" name="startDate" value="<%= startDate %>">
+                <input type="hidden" name="endDate" value="<%= endDate %>">
+                <button type="submit" class="btn btn-primary" id="downloadBtn">Download Report</button>
+            </form>
+        <% } %>
+    </div>
+   </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Disable multiple form submissions
+        const downloadForm = document.getElementById('downloadForm');
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadForm.addEventListener('submit', () => {
+            downloadBtn.disabled = true;
+            downloadBtn.innerText = 'Downloading...';
+        });
+    </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+        <script>
+          function validateDates() {
+              var startDate = new Date(document.getElementById("startDate").value);
+              var endDate = new Date(document.getElementById("endDate").value);
+      
+              if (endDate < startDate) {
+                  // Show the custom alert box
+                  document.getElementById("customAlert").style.display = "block";
+                  return false; // Prevent form submission
+              } else {
+                  return true; // Allow form submission
+              }
+          }
+      
+          function hideAlert() {
+              // Hide the custom alert box
+              document.getElementById("customAlert").style.display = "none";
+          }
+      </script>
+  
+  
+  
+  
+  
+  
+</body>
+</html>

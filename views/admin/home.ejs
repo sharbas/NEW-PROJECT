@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .navbar {
+      background-color: #333;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar {
+      background-color: #333;
+      height: 100vh;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar a:hover {
+      color: #0069d9;
+    }
+
+    .logout {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+    }
+
+    
+    .card {
+      background-color: #f8f9fa;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+      font-size: 16px;
+      color: #555555;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333333;
+    }
+
+    #salesGraph,
+    #paymentPieChart {
+      height: 400px;
+    }
+ 
+  </style>
+</head>
+
+<body>
+  <div class="">
+    <nav class="navbar">
+      <a href="/admin/home" class="navbar-logo">NutriFreshFruit</a>
+      <a href="/admin/logout">Logout</a>
+    </nav>
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+      
+        <!-- Main content goes here -->
+
+<div class="container-fluid">
+
+  <div class="row">
+  
+    <div class="col-lg-10 col-sm-10">
+      <div class="row">
+        <div class="col-12">
+          <!-- <h1>Sales Dashboard</h1> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Sales</h5>
+              <p class="card-text"><%=totalSales%></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Revenue</h5>
+              <p class="card-text"><%=totalRevenue%></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Profit</h5>
+              <p class="card-text"><%=lastProfit%></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Orders</h5>
+              <p class="card-text"><%=numberOfOrders%></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-2 ">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Cost</h5>
+              <p class="card-text"><%=cost%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 70px;">
+        <div class="col-sm-12 col-md-6" >
+          <div id="salesGraph"></div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div id="paymentPieChart"></div>
+        </div>
+      </div>
+    </div>
+      <!-- <p>heloooooo, this is Dashboard</p>
+      <div><img src="/public/adminimage/Dashboard Screen for Quoting Software.png" alt=""></div> -->
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+  // Sales graph data
+  // var salesData =  JSON.stringify(salesData) 
+ var months=JSON.parse(decodeURIComponent('<%=month%>'))
+ var monthlySales=JSON.parse(decodeURIComponent('<%=monthlySales%>'))
+ if(months==undefined){
+  months=''
+ }
+  var salesOptions = {
+    chart: {
+      type: 'bar',
+      height: '400px'
+    },
+    series: [{
+      name: 'Sales Revenue',
+      data: monthlySales
+    }],
+    xaxis: {
+      categories: months
+    },
+    // colors: ['#FF4D4D', '#FFB84D', '#5EBD5E', '#4D79FF', '#A64DFF', '#FF4D88', '#4DFFFF', '#ADADAD', '#FFEA5D', '#A6FF4D', '#FF914D', '#4DADFF']
+  };
+
+  var salesChart = new ApexCharts(document.querySelector("#salesGraph"), salesOptions);
+  salesChart.render();
+
+  // Payment pie chart data
+//   var paymentData =[
+//   { _id: 'cashOnDelivery', totalGrandTotal: 89216 },
+//   { _id: 'online-payment', totalGrandTotal: 3666 }
+// ]
+  
+var series = JSON.parse(decodeURIComponent('<%=series%>'))
+var labels =JSON.parse(decodeURIComponent('<%=labels%>'))
+
+
+  var paymentOptions = {
+    chart: {
+      type: 'donut',
+      height: '400px'
+    },
+    series: series,
+    labels:labels
+  };
+  var paymentData =  paymentOptions 
+  
+  var paymentChart = new ApexCharts(document.querySelector("#paymentPieChart"), paymentOptions);
+  paymentChart.render();
+</script>
+
+        
+      </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .navbar {
+      background-color: #333;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar {
+      background-color: #343a40;
+    
+      
+      margin-top: 0; /* Adjusted margin */
+      padding-top: 20px; /* Adjusted padding */
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar li:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar a:hover {
+      color: #0069d9;
+    }
+
+    .logout {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+    }
+
+    .add-product-container {
+      background-color: #f8f9fa;
+  padding: 20px;
+  margin-top: 0;
+  border-radius: 5px;
+  max-height: calc(100vh - 60px); /* Adjusted max-height */
+  overflow-y: auto; /* Use auto instead of scroll */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+
+    .add-product-container h2 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="">
+    <nav class="navbar">
+      <a href="/admin/home" class="navbar-logo">NutriFreshFruit</a>
+      <a href="/admin/logout">Logout</a>
+    </nav>
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <ul>
+          <li><a href="/admin/home">Dashboard</a></li>
+          <li><a href="/admin/salesReport">sales Report</a></li>
+          <li><a href="/admin/productsList">Products</a></li>
+          <li><a href="/admin/customers">Customers</a></li>
+          <li><a href="/admin/orders">Orders</a></li>
+          <li><a href="/admin/categories">Categories</a></li>
+          <li><a href="/admin/couponList">coupons</a></li>
+          <li><a href="/admin/addCoupon">Add coupon</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+        <div class="add-product">
+          <h2>Add Product</h2>
+          <form action="/admin/addProducts" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="product-name">Product Name</label>
+              <input type="text" name="productname" class="form-control" id="product-name">
+            </div>
+            <div class="form-group">
+              <label for="product-description">Description</label>
+              <textarea class="form-control" name="description" id="product-description" rows="3"></textarea>
+            </div>
+            <div class="m-4">
+              <label style="color: #fff; font-weight: 300;">Upload Images</label><br>
+              <input type="file" class="form-control-file custom-file-input" id="preview-image" name="productImage" onchange="previewImage(event)" style="opacity:100" multiple>
+            </div>
+            <div class="form-group">
+              <label for="product-category">Category</label>
+              <select name="category" class="form-control" id="product-category">
+                <option>Select Category</option>
+                <% for(let i=0;i<categories.length;i++) {%>
+                <option><%= categories[i].categoryName%></option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="product-price">Price</label>
+              <input type="number" name="price" class="form-control" id="product-price" min="1">
+            </div>
+            <div class="form-group">
+              <label for="product-kg">Kg</label>
+              <input type="number" name="kg" class="form-control" id="product-kg">
+            </div>
+            <div class="form-group">
+              <label for="product-offer">Product Offer</label>
+              <input type="number" name="ProductOffer" class="form-control" id="product-offer" min="0">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <script>
+    function previewImage(event) {
+      const previewImages = document.getElementById('preview-image');
+      for (let i = 0; i < event.target.files.length; i++) {
+        const file = event.target.files[i];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImages[i].src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+
+</html>
