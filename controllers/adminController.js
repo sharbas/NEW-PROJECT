@@ -183,41 +183,7 @@ const addProductsLoad = async (req, res) => {
   }
 };
 
-//to add products to db
-// const addProducts = async (req, res) => {
-//   try {
-//     const category = req.body.category;
-//     const categoryCheck = await Category.findOne({ categoryName: category });
-//     if (categoryCheck) {
-//       const productsData = new Product({
-//         productName: req.body.productname,
-//         productImage: req.files.map((file) => file.filename),
-//         productDescription: req.body.description,
-//         categoryName: req.body.category,
-//         price: req.body.price,
-//         kg: req.body.kg,
 
-
-//       })
-//       const croppedImages=[];
-//       for(let file of req.files){
-//         const croppedImage=`cropped_${file.filename}`
-//         await sharp(file.path)
-//         .resize(500,600,{fit:"cover"})
-//         .tofile(`./public/images/${croppedImage}`)
-//         croppedImages.push(croppedImage)
-//       }
-//     }
-
-//     res.redirect("/admin/productsList");
-//     // }else{
-//     //   res.redirect('/admin/addProducts')
-//     // }
-//   } catch (error) {
-//     console.log(error.message);
-//     res.render("404")
-//   }
-// }; 
 const addProducts = async (req, res) => {
   try {
     console.log("HI")
@@ -302,7 +268,6 @@ const deleteProduct = async (req, res) => {
     const id = req.query.id;
 
     const deleteData = await Product.updateOne({ _id: id },{$set:{deleted:true}});
-    console.log(deleteData);
     res.redirect("/admin/productsList");
   } catch (error) {
     console.log(error.message);
@@ -352,11 +317,7 @@ const editProducts = async (req, res) => {
 
 const updateOrderStatus=async(req,res)=>{
   try{
-    console.log('hellllllllllllllllllllloooooooooooooooooooooooo',req.body.orderId);
- 
-
-    console.log('ssssssssssssssssssss', req.body.orderId);
-
+   
     const status = req.body.status
 
     console.log(typeof req.body.orderId)
@@ -397,8 +358,7 @@ const getAddCoupon=async(req,res)=>{
 
 const addCoupon=async(req,res)=>{
   try{
-   console.log()
-  console.log('adddddddddddCoupon',req.body)
+   
   const coupon=new Coupon ({
     coupenCode:req.body.couponCode,
     couponAmount:req.body.couponDiscount,
@@ -438,9 +398,9 @@ res.render('coupon',{coupons})
 
 const deleteCoupon=async(req,res)=>{
   try{
-console.log('haiiii');
+
     const id=req.query.id
-    console.log('iddddddddd',id);
+ 
     const deletecoupon=await Coupon.deleteOne({_id:id})
 
     res.redirect('/admin/couponList')
@@ -638,15 +598,15 @@ const adminHomeLoad = async (req, res) => {
         },
       },
     ]);
-    // console.log("salesPerMonthx",salesPerMonthx);
+   
  const numberOfOrders=await Order.countDocuments()
-//  console.log('what is this',numberOfOrders)
+
     
   //   if(salesPerMonthx){
   //    var salesPerMonth = salesPerMonthx[0].months;
 
   //  }
-// console.log(salesPerMonthx[0].months)
+
     var month = encodeURIComponent(
       JSON.stringify(salesPerMonthx[0].months.map((item) => item.month))
     );
@@ -654,7 +614,7 @@ const adminHomeLoad = async (req, res) => {
       JSON.stringify(salesPerMonthx[0].months.map((item) => item.totalGrandTotal))
     );
    
-    console.log(typeof month)
+  
     res.render("home", {
       currentPage: "dashboard",
       paymentData: "",
@@ -676,275 +636,7 @@ const adminHomeLoad = async (req, res) => {
 };
 
 
-// const salesReport=async(req,res)=>{
-//   try{
 
-//     const todaysales = new Date();
-//     const startOfDay = new Date(
-//       todaysales.getFullYear(),
-//       todaysales.getMonth(),
-//       todaysales.getDate(),
-//       0,
-//       0,
-//       0,
-//       0
-//     );
-//     const endOfDay = new Date(
-//       todaysales.getFullYear(),
-//       todaysales.getMonth(),
-//       todaysales.getDate(),
-//       23,
-//       59,
-//       59,
-//       999
-//     );
-//     const pipeline1=[ {
-//       $match: {
-//         status: { $in: ["pending", "delivered", "shipped"] },
-
-//         dateOrdered: {
-//           $gte: startOfDay, // Set the current date's start time
-//           $lt: endOfDay,
-//         },
-//       },
-//     },
-//     {
-//     $unwind:'$orderItems'
-//     },
-//     {
-//       $lookup:{
-//         from:'products',
-//         localField:'orderItems.productId',
-//         foreignField:'_id',
-//         as:'productData'
-//       }
-//     },
-//     {
-//      $unwind:'$productData'
-//     },
-//     {
-
-//       $project:{
-//         _id:0,
-//         name:'$productData.productName',
-//         kg:'$orderItems.kg',
-//         total:'$orderItems.total',
-//         productId: '$orderItems.productId'
-//       }
-//     },
-//     {
-//       $group: {
-//         _id: '$productId',
-//         productName:{ $push: "$$ROOT" },
-//         totalAmount: { $sum: "$total" },
-//         kg:{$sum:'$kg'}
-//       },
-//     }
-
-//      ]
-
-//     let dailyOrders=await Order.aggregate(pipeline1)
-//     console.log('pipeline1',dailyOrders);
-  
-//     // const {_id,productName,totalAmount,quantity}=dailyOrders
- 
-//     //weeklyproduct
-
-//     const currentDate = new Date();
-
-//     // Calculate the start and end dates of the current week
-//     const startOfWeek = new Date(
-//       currentDate.getFullYear(),
-//       currentDate.getMonth(),
-//       currentDate.getDate() - currentDate.getDay()
-//     );
-//     const endOfWeek = new Date(
-//       currentDate.getFullYear(),
-//       currentDate.getMonth(),
-//       currentDate.getDate() + (6 - currentDate.getDay()),
-//       23,
-//       59,
-//       59,
-//       999
-//     );
-
-//     const pipeline2=[ {
-//       $match: {
-//         status: { $in: ["pending", "delivered", "shipped"] },
-
-//         dateOrdered: {
-//           $gte: startOfWeek, // Set the current date's start time
-//           $lt: endOfWeek,
-//         },
-//       },
-//     },
-//     {
-//     $unwind:'$orderItems'
-//     },
-//     {
-//       $lookup:{
-//         from:'products',
-//         localField:'orderItems.productId',
-//         foreignField:'_id',
-//         as:'productData'
-//       }
-//     },
-//     {
-//      $unwind:'$productData'
-//     },
-//     {
-
-//       $project:{
-//         _id:0,
-//         name:'$productData.productName',
-//         kg:'$orderItems.kg',
-//         total:'$orderItems.total',
-//         productId: '$orderItems.productId'
-//       }
-//     },
-//     {
-//       $group: {
-//         _id: '$productId',
-//         productName:{ $push: "$$ROOT" },
-//         totalAmount: { $sum: "$total" },
-//         kg:{$sum:'$kg'}
-//       },
-//     }
-
-//      ]
-//     //  console.log('pipeline2',pipeline2);
-//      const weeklyOrders=await Order.aggregate(pipeline2)
-    
-
-//      //monthlySales
-
-//      const thisMonth = new Date().getMonth() + 1;
-//      const startofMonth = new Date(
-//        new Date().getFullYear(),
-//        thisMonth - 1,
-//        1,
-//        0,
-//        0,
-//        0,
-//        0
-//      );
-//      const endofMonth = new Date(
-//        new Date().getFullYear(),
-//        thisMonth,
-//        0,
-//        23,
-//        59,
-//        59,
-//        999
-//      );
-
-//      const pipeline3=[ {
-//       $match: {
-//         status: { $in: ["pending", "delivered", "shipped"] },
-
-//         dateOrdered: {
-//           $gte: startofMonth, // Set the current date's start time
-//           $lt: endofMonth,
-//         },
-//       },
-//     },
-//     {
-//     $unwind:'$orderItems'
-//     },
-//     {
-//       $lookup:{
-//         from:'products',
-//         localField:'orderItems.productId',
-//         foreignField:'_id',
-//         as:'productData'
-//       }
-//     },
-//     {
-//      $unwind:'$productData'
-//     },
-//     {
-
-//       $project:{
-//         _id:0,
-//         name:'$productData.productName',
-//         kg:'$orderItems.kg',
-//         total:'$orderItems.total',
-//         productId: '$orderItems.productId'
-//       }
-//     },
-//     {
-//       $group: {
-//         _id: '$productId',
-//         productName:{ $push: "$$ROOT" },
-//         totalAmount: { $sum: "$total" },
-//         kg:{$sum:'$kg'}
-//       },
-//     }
-
-//      ]
-//     //  console.log('pipeline3',pipeline3);
-//      const monthlyOrders=await Order.aggregate(pipeline3)
-
-
-//      //yearlysales
-
-//      const today = new Date().getFullYear();
-//      const startofYear = new Date(today, 0, 1, 0, 0, 0, 0);
-//      const endofYear = new Date(today, 11, 31, 23, 59, 59, 999);
-
-//      const pipeline4=[ {
-//       $match: {
-//         status: { $in: ["pending", "delivered", "shipped"] },
-
-//         dateOrdered: {
-//           $gte: startofYear, // Set the current date's start time
-//           $lt: endofYear,
-//         },
-//       },
-//     },
-//     {
-//     $unwind:'$orderItems'
-//     },
-//     {
-//       $lookup:{
-//         from:'products',
-//         localField:'orderItems.productId',
-//         foreignField:'_id',
-//         as:'productData'
-//       }
-//     },
-//     {
-//      $unwind:'$productData'
-//     },
-//     {
-
-//       $project:{
-//         _id:0,
-//         name:'$productData.productName',
-//         kg:'$orderItems.kg',
-//         total:'$orderItems.total',
-//         productId: '$orderItems.productId'
-//       }
-//     },
-//     {
-//       $group: {
-//         _id: '$productId',
-//         productName:{ $push: "$$ROOT" },
-//         totalAmount: { $sum: "$total" },
-//         kg:{$sum:'$kg'}
-//       },
-//     }
-
-//      ]
-//   //  console.log('pipeline4',pipeline4);
-//      const yearlyOrders=await Order.aggregate(pipeline4)
-//       res.render('salesReport',{currentPage:'salesReport',dailyOrders,weeklyOrders,monthlyOrders,yearlyOrders})
-
-//   }catch(error){
-//     console.log(error.message);
-//     res.render('404')
-//   }
-// }
 
 const salesReport=async(req,res)=>{
   try{

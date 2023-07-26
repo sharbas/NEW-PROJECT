@@ -17,7 +17,7 @@ const { log, logger } = require("handlebars/runtime");
 const securePassword = async (password) => {
   try {
     const passwordHash = await bcrypt.hash(password, 10);
-    console.log(passwordHash);
+   
     return passwordHash;
   } catch (error) {
     console.log(error.message);
@@ -182,7 +182,6 @@ const loginVerify = async (req, res) => {
         if (userData.isVerified == 1) {
           if (userData.isBlock === false) {
             req.session.userId = userData._id;
-            console.log("req.session.userId", req.session.userId);
             res.redirect("/home");
           } else {
             res.render("login", { message: "you are blocked" });
@@ -207,7 +206,6 @@ const loadHome = async (req, res) => {
   try {
     const productData = await Product.find({});
     const userCartData = await Cart.findOne({ userId: req.session.userId })
-    console.log('userCartDataaaaaaaaaahome',userCartData);
     res.render("home", { productData: productData,userCartData });
   } catch (error) {
     console.log(error.message);
@@ -626,14 +624,12 @@ const getCategory = async (req, res) => {
 
 
 const category=await Category.find({categoryName:allProducts[0].categoryName})
-console.log('categoryyyyyyyyyyyyyyyyyy',category[0].categoryOffer)
 
     // const product=await Product.findOne({})
     const userCartData = await Cart.findOne({ userId: req.session.userId })
     const allcategory = await Category.find({});
     const selectedCategory = await Category.find({categoryName:categoryname});
 
-    console.log(allProducts);
     res.render("category", {
       allProducts,
       allcategory: allcategory,
@@ -728,18 +724,14 @@ const addToCart = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    console.log('hai deleteItem ');
     const index = req.query.index;
     const cart = await Cart.findOne({ userId: req.session.userId });
-    console.log(cart)
-    console.log('cart.grandTotal',cart.grandTotal);
     cart.grandTotal-=cart.product[index].total
    
     await cart.save();
 
     const deleteProduct = cart.product.splice(index, 1);
 
-    console.log('length',cart.product.length)
     if(cart.product.length==0){
       const deleteCart= Cart.deleteOne({userId:req.session.userId})
     
@@ -809,7 +801,6 @@ const updateKg = async (req, res) => {
     const cart = await Cart.findOne({ userId: userId });
     const productId = cart.product[productIndexInCart].productId;
     const product = await Product.findOne({ _id: productId });
-  console.log('product',product.offerPrice);
  
     if (cart.product[productIndexInCart].kg < count) {
       cart.product[productIndexInCart].total += product.offerPrice;
@@ -836,7 +827,6 @@ const updateKg = async (req, res) => {
 const loadCheckout = async (req, res) => {
   try {
     const userId = req.session.userId;
-    console.log('user', userId);
     const user = await User.findOne({ _id: userId });
 
     const cart = await Cart.findOne({ userId: req.session.userId })
@@ -878,8 +868,6 @@ const loadCheckout = async (req, res) => {
 
 const Checkout = async (req, res) => {
   try {
-    console.log("haiii checkout");
-    console.log(req.body);
     const cart = await Cart.findOne({ userId: req.session.userId })
       .populate("product.productId")
       .exec();
@@ -899,11 +887,9 @@ const Checkout = async (req, res) => {
       orderItems: cart.product,
       grandTotal: grandTotal,
     });
-    // console.log('jfffffffffffffffffffffffff',newOrder);
 
     await newOrder.save();
     const orderId = newOrder._id;
-    console.log(orderId);
     const deleteCart = await Cart.deleteOne({ userId: req.session.userId });
 
     res.redirect(`/viewOrderDetails?id=${orderId}`);
@@ -919,7 +905,6 @@ const loadMyOrder = async (req, res) => {
       .populate("orderItems.productId")
       .sort({ dateOrdered: -1 }) // Sort by dateOrdered in descending order
       .exec();
-      console.log('orders',orders);
     res.render("order", { orders });
   } catch (error) {
     console.log(error.message);
@@ -977,9 +962,7 @@ const searchProduct = async (req, res) => {
 const couponLoad = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.session.userId });
-    console.log("userrrrrrrrrrrr", user);
     let referralCode = user.referralCode;
-    console.log("referralCode", referralCode);
     const coupons = await Coupon.find({});
     const userCartData = await Cart.findOne({ userId: req.session.userId })
     .populate("product.productId")
@@ -992,21 +975,7 @@ const couponLoad = async (req, res) => {
   }
 };
 
-// const orderDetailsLoad = async (req, res) => {
-//   try {
-//     const id = req.query.id;
-//     console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrr',id);
 
-//     const orders=await Order.findOne({_id:id}).populate('orderItems.productId').exec()
-// console.log('ttttttttttttt',orders.orderItems);
-
-//     // Render the order details view with the order and associated product details
-//     res.render('orderDetails', { orders: orders })
-//   } catch (error) {
-//     console.log(error.message);
-//     res.render('404');
-//   }
-// }
 
 const cancelOrder = async (req, res) => {
   try {
@@ -1046,17 +1015,6 @@ const cancelOrder = async (req, res) => {
 
 
 
-// const createOrder=async(req,res)=>{
-
-//   try {
-
-//   } catch (error) {
-//     console.log(error.message);
-//     res.render('404');
-//   }
-
-// }
-
 const cheakCoupon = async (req, res) => {
   try {
     const userId = req.session.userId;
@@ -1093,7 +1051,6 @@ const cheakCoupon = async (req, res) => {
           res.json({ min: false });
         }
       }
-      console.log("shsabasd", couponApplyDiscount);
 
       if (couponApplyDiscount !== 0) {
         res.json({
@@ -1114,20 +1071,15 @@ const cheakCoupon = async (req, res) => {
 // Handle wallet payment
 const walletPayment = async (req, res) => {
   try {
-    console.log("hai wallet");
     const amount= req.body.amount;
-    console.log(" req.bodyfvvdgdfgfdgdf", req.body);
     // Fetch user from the database
     const user = await User.findById({ _id: req.session.userId });
-    console.log("userid is here", user);
     // Check if user has sufficient balance in the wallet
 
     // Deduct the amount from the wallet balance
     user.wallet -= amount;
-console.log('user.wallet',user.wallet);
     // Save the updated user object
     await user.save();
-console.log('hai nayeem');
     // Perform further actions or send a response as needed
     return res
       .status(200)
@@ -1172,7 +1124,6 @@ module.exports = {
   updateKg,
   searchProduct,
   couponLoad,
-  // orderDetailsLoad,
   cancelOrder,
   cheakCoupon,
   walletPayment,

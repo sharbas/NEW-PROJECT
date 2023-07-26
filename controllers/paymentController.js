@@ -11,11 +11,8 @@ const razorpayInstance=new Razorpay({
 const orderDetailsLoad = async (req, res) => {
   try {
     const id = req.query.id;
-    console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrr', id);
     
     const orders = await Order.findOne({ _id: id }).populate('orderItems.productId').exec();
-    console.log('ttttttttttttt', orders.orderItems);
-    console.log('orders.orderItems[i].productId.productImage', orders.orderItems[0].productId.productImage);
 
     // Render the order details view with the order and associated product details
     res.render('orderDetails', { orders: orders });
@@ -30,7 +27,6 @@ const orderDetailsLoad = async (req, res) => {
 const createOrder=async(req,res)=>{     
 console.log("///////////////////////")
     try {
-      console.log(req.body)
    const amount=req.body.amount*100
       const options={
         amount:amount,

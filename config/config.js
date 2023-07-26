@@ -7,7 +7,8 @@ const APP_PASSWORD=process.env.APP_PASSWORD
 
 const serverStart=()=>{
     const mongoose=require('mongoose')
-    mongoose.connect('mongodb://127.0.0.1:27017/NutriNatureFruit')
+    // mongoose.connect('mongodb://127.0.0.1:27017/NutriNatureFruit')
+    mongoose.connect('mongodb+srv://sharbas:AFzEGlptjcJkGYSW@cluster0.prlhos8.mongodb.net/')
 }
 
 

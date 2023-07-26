@@ -38,7 +38,7 @@ user_route.post('/resetPassword',userController.updatePassword)
 
 user_route.get('/logout', auth.isLogin,userController.logout)
 
-user_route.get('/profile',userController.userProfile)
+user_route.get('/profile',auth.isLogin,userController.userProfile)
 
 user_route.post('/profile-address-add',userController.profileAddressAdd)
 
@@ -81,7 +81,7 @@ user_route.post('/createOrder',paymentController.createOrder)
 
 user_route.post('/checkCouponAvailable',userController.cheakCoupon)
 
-user_route.post('/wallet-payment', userController.walletPayment);
+user_route.post('/wallet-payment', userController.walletPayment)
 
 
 module.exports = user_route;
