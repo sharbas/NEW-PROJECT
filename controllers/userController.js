@@ -11,9 +11,7 @@ const { pipeline } = require("nodemailer/lib/xoauth2");
 const Category = require("../models/categoryModel");
 const { all } = require("promise");
 const { log, logger } = require("handlebars/runtime");
-// const { log } = require("handlebars");
 
-//hash the passwored to secure it
 const securePassword = async (password) => {
   try {
     const passwordHash = await bcrypt.hash(password, 10);
