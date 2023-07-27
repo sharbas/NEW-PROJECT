@@ -1,4 +1,5 @@
 const  express = require('express');
+const mongoose=require('mongoose')
 const app = express()
 const path=require('path')
 const nocache=require('nocache')
@@ -12,7 +13,9 @@ const cookieParser = require('cookie-parser');
 const  userRouter = require('./routes/userRoute');
 const adminRouter = require('./routes/adminRoute');
 
-config.serverStart()
+// mongoose.connect('mongodb://127.0.0.1:27017/NutriNatureFruit')
+mongoose.connect('mongodb+srv://sharbas:AFzEGlptjcJkGYSW@cluster0.prlhos8.mongodb.net/')
+
 
 app.use(express.static(path.join(__dirname,'public')))
 app.use('/public',express.static('public'))
