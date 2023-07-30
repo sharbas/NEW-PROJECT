@@ -398,6 +398,7 @@ const profileAddressAdd = async (req, res) => {
 };
 
 
+
 //to profile edit
 const profileEdit = async (req, res) => {
   try {
@@ -420,22 +421,24 @@ const profileEdit = async (req, res) => {
 
 const editAddress = async (req, res) => {
   try {
-    const { addressId, type, address, city, district, state, zip, country } = req.body;
+    const { addressId } = req.query;
+    // console.log("req.query",req.query);
+    // console.log(" req.body", req.body.etype);
+    // console.log(" req.body2", req.body.city);
+    // const { adtype, adcity, addistrict, adstate, adzip, adcountry } = req.body;
+    // console.log(req.body.adtype)
+    const user = await User.findOne({ 'address._id': addressId });
+    const addressIndex = user.address.findIndex(addr => addr._id.toString() === addressId);
 
-    await User.updateOne(
-      { "address._id": addressId },
-      {
-        $set: {
-          "address.$.addressType": type,
-          "address.$.address": address,
-          "address.$.city": city,
-          "address.$.district": district,
-          "address.$.state": state,
-          "address.$.zip": zip,
-          "address.$.country": country
-        }
-      }
-    );
+    user.address[addressIndex].addressType = req.body.etype;
+    // user.address[addressIndex].address = adaddress;
+    user.address[addressIndex].city = req.body.city;
+    user.address[addressIndex].district = req.body.district;
+    user.address[addressIndex].state = req.body.state;
+    user.address[addressIndex].zip = req.body.zip;
+    user.address[addressIndex].country = req.body.country;
+
+    await user.save(); // Save the updated user document
 
     res.redirect("/profile");
   } catch (error) {
@@ -444,16 +447,17 @@ const editAddress = async (req, res) => {
   }
 };
 
+
 const deleteAddress = async (req, res) => {
   try {
-    const addressIndex = req.body.addressIndex;
+    const addressIndex= req.body.addressIndex;
+    console.log("addressIndex",addressIndex);
     const userId = req.session.userId;
-
-    await User.updateOne(
-      { _id: userId },
-      { $pull: { address: { $exists: true, $ne: null } } }
-    );
-
+console.log("userId",userId);
+    const user=await User.findOne({_id:userId})
+    console.log("user",user);
+    user.address.splice(addressIndex,1)
+   await user.save()
     res.redirect("/profile");
   } catch (error) {
     console.log(error);

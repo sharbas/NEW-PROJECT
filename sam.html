@@ -1,0 +1,61 @@
+<div class="row px-3">
+<p class="text-center"><u><b>Address</b></u></p>
+<% userData.address.forEach(function(address, index) { %>
+  <div class="col-sm-4 my-2">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title"><%= address.addressType %></h5>
+          <div>
+            <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addressEdit"><i class="fa-solid fa-pen mx-1" style="color: #808080;"></i></a>
+            <a onclick="deleteAddress(<%= index %>)" style="cursor: pointer;"><i class="fas fa-trash-alt" style="color: #f60404;"></i></a>
+          </div>
+        </div>
+        <p class="card-text">
+          <%= address.address %><br>
+          <%= address.city %>, <%= address.district %>, <%= address.state %><br>
+          <%= address.zip %>, <%= address.country %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% }) %>
+
+<a class="btn text-white btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#addAddress">Add Address</a>
+</div>
+
+
+
+const editaddress= async(req,res)=>{
+  try {
+    try {
+      const addressId = req.query.addressId;
+      const userId = req.session.userid;
+
+      // Find the user and the specific address within the user's address array
+      const user = await User.findOne({ _id: userId, 'address._id': addressId });
+      const addressIndex = user.address.findIndex(addr => addr._id.toString() === addressId.toString());
+
+      // Update the address details
+      user.address[addressIndex].type = req.body.type;
+      user.address[addressIndex].houseName = req.body.houseName;
+      user.address[addressIndex].village = req.body.village;
+      user.address[addressIndex].landmark = req.body.landmark;
+      user.address[addressIndex].pincode = req.body.pincode;
+      user.address[addressIndex].city = req.body.city;
+      user.address[addressIndex].district = req.body.district;
+      user.address[addressIndex].state = req.body.state;
+      user.address[addressIndex].country = req.body.country;
+
+      // Save the updated user document
+      await user.save();
+
+      res.redirect('/useraddress');
+  } catch (error) {
+      console.log(error);
+      res.status(500).send('An error occurred while updating the address.');
+  }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
