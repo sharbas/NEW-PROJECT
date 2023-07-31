@@ -1,5 +1,5 @@
 const Razorpay=require('razorpay')
-
+const Coupon=require('../models/couponModel')
 // const {RAZORPAY_ID_KEY,RAZORPAY_SECRET_KEY}=process.env
 const Order=require('../models/orderModel')
 const razorpayInstance=new Razorpay({
@@ -25,9 +25,19 @@ const orderDetailsLoad = async (req, res) => {
 
   
 const createOrder=async(req,res)=>{     
-console.log("///////////////////////")
+console.log(req.body)
+const couponCode =req.body.coupon
+
     try {
-   const amount=req.body.amount*100
+   let amount=req.body.amount*100
+   if(couponCode){
+    const coupon = await Coupon.findOne({
+      coupenCode: { $regex: new RegExp("^" + couponCode + "$", "i") },
+    });
+    if(coupon){
+    amount= amount- coupon.couponAmount*100
+    }
+  }
       const options={
         amount:amount,
         currency:'INR',
