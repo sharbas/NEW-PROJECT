@@ -2,8 +2,12 @@ const myEnv=require('dotenv').config()
 
 const sessionsecret='mysitesessionsecret'
 
-const ADMIN_EMAIL=process.env.EMAIL
-const APP_PASSWORD=process.env.APP_PASSWORD
+
+
+
+
+const ADMIN_EMAIL='mohammedsharbas33@gmail.com'
+const APP_PASSWORD='iggyvgryseybvfnl'
 
 // const serverStart=()=>{
 //     const mongoose=require('mongoose')

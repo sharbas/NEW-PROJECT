@@ -43,7 +43,7 @@ const sendverifyMail = async (name, email, userId) => {
       html:
         "<p>hi" +
         name +
-        ',please click here to <a href="http://localhost:3000/verify?id=' +
+        ',please click here to <a href="www.nutrifreshfruit.website/verify?id=' +
         userId +
         '">verify</a>your mail.</p>',
     };
@@ -108,7 +108,7 @@ const insertUser = async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: spassword,
-        isVerified: 1,
+        isVerified: 0,
         is_admin: 0,
         otp: "",
         referralCode: referralCode,
