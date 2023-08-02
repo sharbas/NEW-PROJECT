@@ -159,7 +159,7 @@
                   <th scope="col">Category</th>
                   <th scope="col">Description</th>
                   <th scope="col">Price</th>
-                  <th scope="col">Kg</th>
+                  <th scope="col">stock</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -179,8 +179,8 @@
                   </td>
                   <td><%= product[i].categoryName %></td>
                   <td><%= product[i].productDescription %></td>
-                  <td><%= product[i].price %></td>
-                  <td><%= product[i].kg %></td>
+                  <td><h6>per kg</h6> <br><%= product[i].price %></td>
+                  <td><%= product[i].stock %></td>
                   <td>
                     <div class="action-buttons">
                       <button class="btn btn-primary" onclick="confirmEdit('<%= product[i]._id %>')">Edit</button>

@@ -7,6 +7,7 @@ const config = require('../config/config')
 const adminAuth = require('../middleware/adminAuth')
 const multer=require('../middleware/multer')
 
+
 // view engine setup
 admin_route.set('view engine', 'ejs');
 admin_route.set('views','./views/admin');
@@ -43,7 +44,9 @@ admin_route.get('/productsList',adminAuth.adminIsLogin,adminController.productsL
 
 admin_route.get('/editProducts',adminController.editProductsLoad)
 
-admin_route.post('/editProducts',adminController.editProducts)
+admin_route.post('/editProducts',multer.upload.array('productImage'),adminController.editProducts)
+
+admin_route.get('/deleteImage',adminController.deleteImage)
 
 admin_route.get('/deleteProduct',adminController.deleteProduct)
 

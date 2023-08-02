@@ -63,7 +63,7 @@ user_route.get('/single-product',userController.singleProductLoad)
 
 user_route.get('/checkout',auth.isLogin,userController.loadCheckout)
 
-user_route.post('/checkout',userController.Checkout)
+user_route.post('/checkout',auth.isLogin,userController.Checkout)
 
 user_route.get('/myOrder',auth.isLogin,userController.loadMyOrder)
 user_route.get('/orderDetails/:orderId', userController.showOrderDetailsModal);

@@ -15,7 +15,7 @@ const { log, logger } = require("handlebars/runtime");
 const securePassword = async (password) => {
   try {
     const passwordHash = await bcrypt.hash(password, 10);
-   
+
     return passwordHash;
   } catch (error) {
     console.log(error.message);
@@ -74,7 +74,8 @@ const signupLoad = async (req, res) => {
 //to insert the data of user from signup
 const insertUser = async (req, res) => {
   try {
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (req.body.Password === req.body.rePassword) {
       // Check if the password meets strong password criteria
@@ -89,7 +90,8 @@ const insertUser = async (req, res) => {
       const existingUser = await User.findOne({ email: req.body.email });
       if (existingUser) {
         return res.render("signup", {
-          message: "Email address already exists. Please use a different email or login.",
+          message:
+            "Email address already exists. Please use a different email or login.",
         });
       }
 
@@ -118,7 +120,9 @@ const insertUser = async (req, res) => {
 
       if (req.body.referralCode) {
         const enteredReferralCode = req.body.referralCode;
-        const referredUser = await User.findOne({ referralCode: enteredReferralCode });
+        const referredUser = await User.findOne({
+          referralCode: enteredReferralCode,
+        });
 
         if (referredUser) {
           referredUser.wallet += 100;
@@ -203,8 +207,8 @@ const loginVerify = async (req, res) => {
 const loadHome = async (req, res) => {
   try {
     const productData = await Product.find({});
-    const userCartData = await Cart.findOne({ userId: req.session.userId })
-    res.render("home", { productData: productData,userCartData });
+    const userCartData = await Cart.findOne({ userId: req.session.userId });
+    res.render("home", { productData: productData, userCartData });
   } catch (error) {
     console.log(error.message);
     res.render("404");
@@ -362,10 +366,10 @@ const userProfile = async (req, res) => {
     const id = req.session.userId;
 
     const userData = await User.findOne({ _id: id });
-    const userCartData = await Cart.findOne({ userId: req.session.userId })
+    const userCartData = await Cart.findOne({ userId: req.session.userId });
 
     if (userData) {
-      res.render("profile", { userData: userData,userCartData });
+      res.render("profile", { userData: userData, userCartData });
     }
   } catch (error) {
     console.log(error.message);
@@ -381,12 +385,12 @@ const profileAddressAdd = async (req, res) => {
 
     user.address.push({
       addressType: req.body.type,
-      
+
       city: req.body.city,
       district: req.body.district,
       state: req.body.state,
       zip: req.body.zip,
-      country: req.body.country
+      country: req.body.country,
     });
 
     await user.save();
@@ -396,8 +400,6 @@ const profileAddressAdd = async (req, res) => {
     res.render("404");
   }
 };
-
-
 
 //to profile edit
 const profileEdit = async (req, res) => {
@@ -427,8 +429,10 @@ const editAddress = async (req, res) => {
     // console.log(" req.body2", req.body.city);
     // const { adtype, adcity, addistrict, adstate, adzip, adcountry } = req.body;
     // console.log(req.body.adtype)
-    const user = await User.findOne({ 'address._id': addressId });
-    const addressIndex = user.address.findIndex(addr => addr._id.toString() === addressId);
+    const user = await User.findOne({ "address._id": addressId });
+    const addressIndex = user.address.findIndex(
+      (addr) => addr._id.toString() === addressId
+    );
 
     user.address[addressIndex].addressType = req.body.etype;
     // user.address[addressIndex].address = adaddress;
@@ -447,26 +451,22 @@ const editAddress = async (req, res) => {
   }
 };
 
-
 const deleteAddress = async (req, res) => {
   try {
-    const addressIndex= req.body.addressIndex;
-    console.log("addressIndex",addressIndex);
+    const addressIndex = req.body.addressIndex;
+    console.log("addressIndex", addressIndex);
     const userId = req.session.userId;
-console.log("userId",userId);
-    const user=await User.findOne({_id:userId})
-    console.log("user",user);
-    user.address.splice(addressIndex,1)
-   await user.save()
+    console.log("userId", userId);
+    const user = await User.findOne({ _id: userId });
+    console.log("user", user);
+    user.address.splice(addressIndex, 1);
+    await user.save();
     res.redirect("/profile");
   } catch (error) {
     console.log(error);
     res.render("404");
   }
 };
-
-
-
 
 // const addToCart = async (req, res) => {
 //   try {
@@ -610,7 +610,6 @@ const getShop = async (req, res) => {
   }
 };
 
-
 const getCategory = async (req, res) => {
   try {
     const ITEMS_PER_PAGE = 6;
@@ -624,30 +623,31 @@ const getCategory = async (req, res) => {
       .skip(skipItems)
       .limit(ITEMS_PER_PAGE);
 
-
-const category=await Category.find({categoryName:allProducts[0].categoryName})
+    const category = await Category.find({
+      categoryName: allProducts[0].categoryName,
+    });
 
     // const product=await Product.findOne({})
-    const userCartData = await Cart.findOne({ userId: req.session.userId })
+    const userCartData = await Cart.findOne({ userId: req.session.userId });
     const allcategory = await Category.find({});
-    const selectedCategory = await Category.find({categoryName:categoryname});
+    const selectedCategory = await Category.find({
+      categoryName: categoryname,
+    });
 
     res.render("category", {
       allProducts,
       allcategory: allcategory,
-      selectedCategory:selectedCategory,
+      selectedCategory: selectedCategory,
       currentPage: page,
       totalPages: totalPages,
       userCartData,
-      category
+      category,
     });
   } catch (error) {
     console.log(error);
     res.render("404");
   }
 };
-
-
 
 const singleProductLoad = async (req, res) => {
   try {
@@ -656,12 +656,12 @@ const singleProductLoad = async (req, res) => {
     const singleProduct = await Product.findOne({ _id: productId });
 
     const allProducts = await Product.find({});
-    const userCartData = await Cart.findOne({ userId: req.session.userId })
+    const userCartData = await Cart.findOne({ userId: req.session.userId });
 
     res.render("single-product", {
       singleProduct: singleProduct,
       allProducts: allProducts,
-      userCartData
+      userCartData,
     });
   } catch (error) {
     console.log(error.message);
@@ -723,29 +723,23 @@ const addToCart = async (req, res) => {
   }
 };
 
-
 const deleteItem = async (req, res) => {
   try {
     const index = req.query.index;
     const cart = await Cart.findOne({ userId: req.session.userId });
-    cart.grandTotal-=cart.product[index].total
-   
+    cart.grandTotal -= cart.product[index].total;
+
     await cart.save();
 
     const deleteProduct = cart.product.splice(index, 1);
 
-    if(cart.product.length==0){
-      const deleteCart= Cart.deleteOne({userId:req.session.userId})
-    
+    if (cart.product.length == 0) {
+      const deleteCart = Cart.deleteOne({ userId: req.session.userId });
+
       // console.log('deleteCart.product.total',deleteCart.product[index].total);
-   
-    
     }
     await cart.save();
 
-   
-   
-  
     res.redirect("/cart");
   } catch (error) {
     console.log(error.message);
@@ -760,11 +754,11 @@ const getCart = async (req, res) => {
       .populate("product.productId")
       .lean()
       .exec();
-
+   
     if (!userCartData) {
       userCartData = null; // Set userCartData to null if it's null or empty
     }
-
+    
     const productId = userCartData?.product?.map((data) => {
       return {
         id: data.productId?._id.toString(),
@@ -790,8 +784,6 @@ const getCart = async (req, res) => {
   }
 };
 
-
-
 //controller for updatekg
 const updateKg = async (req, res) => {
   try {
@@ -803,7 +795,7 @@ const updateKg = async (req, res) => {
     const cart = await Cart.findOne({ userId: userId });
     const productId = cart.product[productIndexInCart].productId;
     const product = await Product.findOne({ _id: productId });
- 
+
     if (cart.product[productIndexInCart].kg < count) {
       cart.product[productIndexInCart].total += product.offerPrice;
 
@@ -816,8 +808,8 @@ const updateKg = async (req, res) => {
     const c = await cart.save();
     const total = cart.product[productIndexInCart].total;
     const grandTotal = cart.grandTotal;
-    console.log('total',total);
-    console.log('grandTotal',grandTotal);
+    console.log("total", total);
+    console.log("grandTotal", grandTotal);
 
     res.send({ total, grandTotal });
   } catch (error) {
@@ -825,6 +817,93 @@ const updateKg = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// const loadCheckout = async (req, res) => {
+//   try {
+//     const userId = req.session.userId;
+//     const user = await User.findOne({ _id: userId });
+
+//     const cart = await Cart.findOne({ userId: req.session.userId })
+//       .populate("product.productId")
+//       .exec();
+
+
+//     let subTotal = 0;
+//     for (let i = 0; i < cart.product.length; i++) {
+//       subTotal += cart.product[i].total;
+//     }
+
+//     let grandTotal = 0;
+//     for (let i = 0; i < cart.product.length; i++) {
+//       grandTotal += cart.product[i].total;
+//     }
+//     let wallet = user.wallet;
+//     const encodeWallet = encodeURIComponent(JSON.stringify(wallet));
+//     // const userCartData = await Cart.findOne({ userId: req.session.userId });
+
+//     // Convert the user object to a JSON string and then encode it
+//     const encodeduser = encodeURIComponent(JSON.stringify(user));
+
+// //////////////////////////////////////////////////////////////////////////////////
+// //its the condition for out of stock
+// /////////////////////////////////////////////////////////////////////////////////
+// let userCartData = await Cart.findOne({ userId: userId })
+//       .populate("product.productId")
+//       .lean()
+//       .exec();
+   
+//     if (!userCartData) {
+//       userCartData = null; // Set userCartData to null if it's null or empty
+//     }
+    
+//     const productId = userCartData?.product?.map((data) => {
+//       return {
+//         id: data.productId?._id.toString(),
+//       };
+//     });
+
+//     let totalPrice = 0;
+//     var ProductPrice = [];
+
+//     if (userCartData?.product && userCartData.product.length > 0) {
+//       for (let i = 0; i < userCartData.product.length; i++) {
+//         ProductPrice[i] =
+//           userCartData.product[i].productId.offerPrice *
+//           userCartData.product[i].kg;
+//         totalPrice += ProductPrice[i];
+//       }
+//     }
+    
+//     for(let i=0;i<cart.product.length;i++){
+//       console.log(cart.product[i].kg,'this is kg',cart.product[i].productId.stock,"this is stock" );
+//       if(cart.product[i].kg>cart.product[i].productId.stock){
+//     res.render('cart',{ // Ensure that 'user' variable is passed correctly
+//     userCartData, totalPrice, ProductPrice, productId
+//     ,message:`${cart.product[i].productId.productName}+"is out of stock, remove the product from the cart to checkout"`})
+//       }
+//     }
+
+// //////////////////////////////////////////////////////////////////////
+// //its the ending of out of stock
+// /////////////////////////////////////////////////////////////////////
+
+
+//     res.render("checkout", {
+//       user: user, // Ensure that 'user' variable is passed correctly
+//       encodeduser,
+//       cart,
+//       grandTotal,
+//       subTotal,
+//       encodeWallet,
+//       userCartData,
+//     });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.render("404");
+//   }
+// };
+
+
 
 const loadCheckout = async (req, res) => {
   try {
@@ -844,21 +923,62 @@ const loadCheckout = async (req, res) => {
     for (let i = 0; i < cart.product.length; i++) {
       grandTotal += cart.product[i].total;
     }
+
     let wallet = user.wallet;
     const encodeWallet = encodeURIComponent(JSON.stringify(wallet));
-    const userCartData = await Cart.findOne({ userId: req.session.userId });
-
-    // Convert the user object to a JSON string and then encode it
     const encodeduser = encodeURIComponent(JSON.stringify(user));
+
+    // Check for out-of-stock products
+    const outOfStockProducts = cart.product.filter(
+      (item) => item.kg > item.productId.stock
+    );
+
+    if (outOfStockProducts.length > 0) {
+      // If there are out-of-stock products, display the message on checkout page
+let userCartData = await Cart.findOne({ userId: userId })
+      .populate("product.productId")
+      .lean()
+      .exec();
+   
+    if (!userCartData) {
+      userCartData = null; // Set userCartData to null if it's null or empty
+    }
     
+    const productId = userCartData?.product?.map((data) => {
+      return {
+        id: data.productId?._id.toString(),
+      };
+    });
+
+    let totalPrice = 0;
+    var ProductPrice = [];
+
+    if (userCartData?.product && userCartData.product.length > 0) {
+      for (let i = 0; i < userCartData.product.length; i++) {
+        ProductPrice[i] =
+          userCartData.product[i].productId.offerPrice *
+          userCartData.product[i].kg;
+        totalPrice += ProductPrice[i];
+      }
+    }
+
+      return res.redirect('/cart?userCartData=' + encodeURIComponent(JSON.stringify(userCartData)) +
+      '&totalPrice=' + encodeURIComponent(totalPrice) +
+      '&ProductPrice=' + encodeURIComponent(ProductPrice) +
+      '&productId=' + encodeURIComponent(productId) +
+      '&message=' + encodeURIComponent(`${outOfStockProducts[0].productId.productName} is out of stock, remove the product from the cart to checkout`));
+
+    }
+
+    // If no out-of-stock products, proceed with rendering the checkout page normally
     res.render("checkout", {
-      user: user, // Ensure that 'user' variable is passed correctly
+      user: user,
       encodeduser,
       cart,
       grandTotal,
       subTotal,
       encodeWallet,
-      userCartData,
+      userCartData: cart, // Pass cart as userCartData since there are no out-of-stock products
     });
   } catch (error) {
     console.log(error.message);
@@ -867,29 +987,35 @@ const loadCheckout = async (req, res) => {
 };
 
 
-
 const Checkout = async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.session.userId })
       .populate("product.productId")
       .exec();
-    //  console.log('jdhfkjhsajhklahkj;ldsfjhj;kah',cart);
+      //  console.log('jdhfkjhsajhklahkj;ldsfjhj;kah',cart);
+
+      
+     
     var grandTotal = 0;
     for (let i = 0; i < cart.product.length; i++) {
-      grandTotal += cart.product[i].productId.price * cart.product[i].kg;
+      grandTotal += cart.product[i].productId.offerPrice * cart.product[i].kg;
     }
 
     const newOrder = new Order({
       userId: req.session.userId,
       name: req.body.name,
       email: req.body.email,
-      address: req.body.address,
+      city:req.body.city,
+      district:req.body.district,
+      state:req.body.state,
+      zip:req.body.zip,
+      country:req.body.country,
       phone: req.body.phone,
       paymentMethod: req.body.payment,
       orderItems: cart.product,
       grandTotal: grandTotal,
     });
-
+    // console.log(req.body.address);
     await newOrder.save();
     const orderId = newOrder._id;
     const deleteCart = await Cart.deleteOne({ userId: req.session.userId });
@@ -907,29 +1033,31 @@ const loadMyOrder = async (req, res) => {
       .populate("orderItems.productId")
       .sort({ dateOrdered: -1 }) // Sort by dateOrdered in descending order
       .exec();
-    res.render("order", { orders });
+    const user = await User.findOne({ _id: req.session.userId });
+    res.render("order", { orders, user });
   } catch (error) {
     console.log(error.message);
     res.render("404");
   }
-}
+};
 
 const showOrderDetailsModal = async (req, res) => {
   try {
     const orderId = req.params.orderId;
-    const order = await Order.findById(orderId).populate('orderItems.productId').exec();
+    const order = await Order.findById(orderId)
+      .populate("orderItems.productId")
+      .exec();
 
     if (!order) {
-      return res.status(404).render('404');
+      return res.status(404).render("404");
     }
 
-    res.render('order_details_modal', { order });
+    res.render("order_details_modal", { order });
   } catch (error) {
     console.log(error.message);
-    res.status(500).render('500');
+    res.status(500).render("500");
   }
 };
-
 
 const searchProduct = async (req, res) => {
   try {
@@ -967,17 +1095,15 @@ const couponLoad = async (req, res) => {
     let referralCode = user.referralCode;
     const coupons = await Coupon.find({});
     const userCartData = await Cart.findOne({ userId: req.session.userId })
-    .populate("product.productId")
-    .lean()
-    .exec();
-    res.render("coupon", { coupons, referralCode,userCartData });
+      .populate("product.productId")
+      .lean()
+      .exec();
+    res.render("coupon", { coupons, referralCode, userCartData });
   } catch (error) {
     console.log(error);
     res.render("404");
   }
 };
-
-
 
 const cancelOrder = async (req, res) => {
   try {
@@ -987,10 +1113,10 @@ const cancelOrder = async (req, res) => {
     const canceledOrder = await Order.findOne({ _id: orderId });
 
     // Check if the payment method for the order is "cash"
-    if (canceledOrder.paymentMethod === 'cash') {
+    if (canceledOrder.paymentMethod === "cash") {
       // If the payment method is "cash," do not add the canceled order amount to the user's wallet
       // Instead, you can just mark the order as canceled and redirect to "/myOrder"
-      await Order.updateOne({ _id: orderId }, { $set: { status: 'canceled' } });
+      await Order.updateOne({ _id: orderId }, { $set: { status: "canceled" } });
       res.redirect("/myOrder");
     } else {
       // If the payment method is not "cash," add the canceled order amount to the user's wallet
@@ -1004,7 +1130,7 @@ const cancelOrder = async (req, res) => {
       );
 
       // Mark the order as canceled
-      await Order.updateOne({ _id: orderId }, { $set: { status: 'canceled' } });
+      await Order.updateOne({ _id: orderId }, { $set: { status: "canceled" } });
 
       // Order cancellation successful
       res.redirect("/myOrder");
@@ -1014,8 +1140,6 @@ const cancelOrder = async (req, res) => {
     res.render("404");
   }
 };
-
-
 
 const cheakCoupon = async (req, res) => {
   try {
@@ -1073,7 +1197,7 @@ const cheakCoupon = async (req, res) => {
 // Handle wallet payment
 const walletPayment = async (req, res) => {
   try {
-    const amount= req.body.amount;
+    const amount = req.body.amount;
     // Fetch user from the database
     const user = await User.findById({ _id: req.session.userId });
     // Check if user has sufficient balance in the wallet

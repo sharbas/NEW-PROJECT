@@ -188,7 +188,11 @@
 					</p>
 					<%}else{%>
 					
-						
+						<% if (typeof message !== 'undefined') { %>
+							<span class="error-message" style="color: red;">
+							  <%= message %>
+							</span>
+						  <% } %>
 						
 				<div class="col-lg-8 col-md-12">
 					<div class="cart-table-wrap">
@@ -215,7 +219,17 @@
 											</a>
 										  </td>
 										  
-										<td class="product-image"><img src="/public/images/<%= userCartData.product[i].productId.productImage[0]%> " alt=""></td>
+										  <% if (userCartData.product[i].productId.productImage && userCartData.product[i].productId.productImage.length > 0) { %>
+											<td class="product-image">
+												<img src="/public/images/<%= userCartData.product[i].productId.productImage[0] %>" alt="">
+											</td>
+											<% } else { %>
+											<!-- Render a placeholder image or some default image here -->
+											<td class="product-image">
+												<img src="/public/images/placeholder-image.jpg" alt="">
+											</td>
+											<% } %>										  
+										
 										<td class="product-name"><%= userCartData.product[i].productId.productName  %></td>
 										<td class="product-price">&#8377;<%= userCartData.product[i].productId.offerPrice  %></td>
 										<td class="product-quantity">

@@ -5,6 +5,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+
   productImage: {
     type: Array,
     required: true,

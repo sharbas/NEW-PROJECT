@@ -125,9 +125,14 @@
         <div class="col-md-10">
           <div class="coupon-form">
             <h2>Add Coupon</h2>
+            <% if (typeof message !== 'undefined') { %>
+              <span class="error-message" style="color: red;">
+                <%= message %>
+              </span>
+            <% } %>
             <form action="/admin/addCoupon" method="post" enctype="multipart/form-data" onsubmit="showConfirmation(event)">
               <label for="coupon-code">Coupon Code:</label>
-              <input type="text" id="coupon-code" name="couponCode" placeholder="Enter coupon code" required>
+              <input type="text" id="coupon-code" name="couponCode" placeholder="Enter coupon code" pattern=".*[A-Z].*" required>
         
               <label for="coupon-discount">Discount Amount:</label>
               <input type="number" id="coupon-discount" name="couponDiscount" placeholder="Enter discount amount" required min="0" max="40">
@@ -147,7 +152,8 @@
               <label for="coupon-image">Upload Coupon Image:</label>
               <input type="file" id="coupon-image" name="couponImage" accept="image/*" required>
         
-              <button type="submit">Submit</button>
+              <button type="submit">Submit</button>   
+              
             </form>
           </div>
         </div>

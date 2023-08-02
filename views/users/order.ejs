@@ -157,6 +157,7 @@ background: linear-gradient(to top left, #f6f6f5(205, 156, 242, 1), rgba(246, 24
 							<% } else { %>
 							  <h5 class="text-muted mb-0">Thanks for your Order!</h5>
 							<% } %>
+							
 						  </div>
 						  <div class="card-body p-4">
 							<div class="d-flex justify-content-between align-items-center mb-4">
@@ -173,8 +174,8 @@ background: linear-gradient(to top left, #f6f6f5(205, 156, 242, 1), rgba(246, 24
 							</div>
 							<% if (Array.isArray(orders[i].orderItems) && orders[i].orderItems.length > 0) { %>
 							  <% for (let j = 0; j < orders[i].orderItems.length; j++) { %>
-								<% const orderStatus = orders[i].status; %>
-								<% if (orderStatus !== 'canceled') { %>
+								<% const orderStatus = orders[i].status%>
+								<% if (orderStatus !== 'canceled'||orderStatus=='delivered') { %>
 								  <a href="/viewOrderDetails?id=<%= orders[i]._id %>">
 									<div class="card shadow-0 border mb-4">
 									  <div class="card-body">
@@ -234,35 +235,41 @@ background: linear-gradient(to top left, #f6f6f5(205, 156, 242, 1), rgba(246, 24
 							<% } %>
 							<!-- Rest of the code for displaying other order details -->
 							<% if (orders[i].paymentMethod) { %>
-							  <div class="d-flex justify-content-between pt-2">
-								<p class="text-muted mb-0"><span class="fw-bold me-4">Payment Method:</span><%= orders[i].paymentMethod %></p>
-							  </div>
-							<% } else { %>
-							  <p>No payment method found.</p>
-							<% } %>
-		  
-							<div class="d-flex justify-content-between">
-							  <% if (orders[i].dateOrdered) { %>
-								<p class="text-muted mb-0">Order Date: <%= orders[i].dateOrdered.toLocaleDateString() %></p>
-							  <% } else { %>
-								<p>No order date found.</p>
-							  <% } %>
-							</div>
-		  
-							<div class="d-flex justify-content-between mb-5">
-							  <p class="text-muted mb-0"><span class="fw-bold me-4">Order ID:</span><%= orders[i]._id %></p>
-							</div>
-		  
+  <div class="d-flex justify-content-between pt-2">
+    <p class="text-muted mb-0"><span class="fw-bold me-4">Payment Method:</span><%= orders[i].paymentMethod %></p>
+  </div>
+<% } else { %>
+  <p>No payment method found.</p>
+<% } %>
 
+<div class="d-flex justify-content-between">
+  <% if (orders[i].dateOrdered) { %>
+    <p class="text-muted mb-0">Order Date: <%= orders[i].dateOrdered.toLocaleDateString() %></p>
+  <% } else { %>
+    <p>No order date found.</p>
+  <% } %>
+</div>
 
-							
-							<% let totalPaid = 0; %>
-							<% for (let j = 0; j < orders[i].orderItems.length; j++) { %>
-							  <% totalPaid += orders[i].orderItems[j].total; %>
-							<% } %>
-							<div class="card-footer border-0 px-4 py-5" style="background-color: #eb722c; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-							  <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total paid: <span class="h2 mb-0 ms-2">&#8377;<%= totalPaid %></span></h5>
-							</div>
+<div class="d-flex justify-content-between mb-3">
+  <p class="text-muted mb-0"><span class="fw-bold me-4">Order ID:</span><%= orders[i]._id %></p>
+</div>
+
+<% if (user.address[0]) { %>
+  <div class="d-flex justify-content-between mb-3">
+    <p class="text-muted mb-0"><span class="fw-bold me-4">Address:</span> <%= user.address[0].city %>, <%= user.address[0].district %>, <%= user.address[0].state %>, <%= user.address[0].zip %>, <%= user.address[0].country %></p>
+  </div>
+<% } else { %>
+  <p>No address found.</p>
+<% } %>
+
+<% let totalPaid = 0; %>
+<% for (let j = 0; j < orders[i].orderItems.length; j++) { %>
+  <% totalPaid += orders[i].orderItems[j].total; %>
+<% } %>
+<div class="card-footer border-0 px-4 py-5" style="background-color: #eb722c; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+  <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total paid: <span class="h2 mb-0 ms-2">&#8377;<%= totalPaid %></span></h5>
+</div>
+
 						  </div>
 						</div>
 					  </div>
@@ -306,7 +313,7 @@ background: linear-gradient(to top left, #f6f6f5(205, 156, 242, 1), rgba(246, 24
           <p><strong>Date:</strong> <%= orders[i].dateOrdered.toLocaleDateString() %></p>
           <p><strong>Payment Method:</strong> <%= orders[i].paymentMethod || 'N/A' %></p>
           <p><strong>User Name:</strong> <%= orders[i].name || 'N/A' %></p>
-          <p><strong>User Country:</strong> <%= orders[i].address || 'N/A' %></p>
+          <p><strong>User address</strong> <%= user.address[0].city%>,<%=user.address[0].district%>,<%=user.address[0].state%>,<%=user.address[0].zip%>,<%=user.address[0].country%></p>
 
           <!-- Table for displaying order items -->
           <table class="table">

@@ -10,7 +10,8 @@ const nodemailer = require("nodemailer");
 const config = require("../config/config");
 const mongoose=require('mongoose')
 //to display login page
-const sharp=require('sharp')
+const sharp=require('sharp');
+const { log } = require("console");
 const adminLoginLoad = async (req, res) => {
   try {
     res.render("login");
@@ -105,12 +106,15 @@ const ordersLoad = async (req, res) => {
       .sort({ dateOrdered: -1 })
       .exec();
 
-    res.render("orders", { orders });
+
+
+    res.render("orders", { orders,  });
   } catch (error) {
     console.log(error.message);
     res.render("404");
   }
 };
+
 
 
 //to display the page of categories list
@@ -147,7 +151,8 @@ const addCategory = async (req, res) => {
         }).save();
         res.redirect("/admin/categories");
       } else {
-        res.redirect("/admin/categories");
+        const category = await Category.find({});
+        res.render("categories",{message:"This category is already exist", category});
       }
     }
   } catch (error) {
@@ -186,8 +191,15 @@ const addProductsLoad = async (req, res) => {
 
 const addProducts = async (req, res) => {
   try {
-    console.log("HI")
+   
     const category = req.body.category;
+    const existingProduct = await Product.findOne({ productName:req.body.productname });
+
+    if (existingProduct) {
+      // If a product with the same name already exists, redirect with a message
+      const categories = await Category.find({});
+      return res.render("addProducts", { message: "This product is already exist." ,categories})
+    }
     const categoryCheck = await Category.findOne({ categoryName: category });
     if (categoryCheck) {
       let productOffer=req.body.ProductOffer
@@ -202,9 +214,9 @@ const addProducts = async (req, res) => {
         categoryName: req.body.category,
         price: req.body.price,
         kg: req.body.kg,
+        stock:req.body.kg,
         productOffer:req.body.ProductOffer,
         offerPrice:offerPrice
-
       });
       
       console.log('category',category);
@@ -233,7 +245,7 @@ const addProducts = async (req, res) => {
 //to display the page of product list       //////////////////////
 const productsListLoad = async (req, res) => {
   try {
-    console.log('Product list page');
+  
    
       const product = await Product.find({deleted:false});
  
@@ -261,6 +273,9 @@ const editProductsLoad = async (req, res) => {
     res.render("404")
   }
 };
+// delete image
+
+
 
 //to delete Product in the product list
 const deleteProduct = async (req, res) => {
@@ -282,27 +297,33 @@ const editProducts = async (req, res) => {
     const currentProduct = await Product.findOne({ _id: id });
     let productOffer=req.body.ProductOffer
     let price= req.body.price
+    console.log('this is req.body.productImage',req.body.productImage);
+    console.log('this is currentProduct.productImage',currentProduct.productImage);
     if(!productOffer||productOffer===undefined){
       productOffer=0
     }
     let offerPrice=price-productOffer
     const updationData = {
       productName: req.body.productname,
-      productImage: currentProduct.image,
+      productImage: currentProduct.productImage,
       productDescription: req.body.description,
       price: req.body.price,
       categoryName: req.body.category,
       kg: req.body.kg,
+      stock:req.body.kg,
       productOffer:productOffer,
       offerPrice:offerPrice
     };
+    console.log(req.files,req.files.length,'this is enigma aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     if (req.files && req.files.length > 0) {
-      updationData.image = req.files.map((file) => file.filename);
+      console.log('haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      updationData.productImage.push( ...req.files.map((file) => file.filename));
     }
     const product = await Product.findByIdAndUpdate(
       { _id: id },
       { $set: updationData }
     );
+    console.log("this is my product",product);
     if (product) {
       res.redirect("/admin/productsList");
     }
@@ -313,6 +334,32 @@ const editProducts = async (req, res) => {
 };
 
 
+const deleteImage = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const imageIndex = req.query.index;
+
+    const productData = await Product.findOne({ _id: id });
+
+    if (!productData) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (imageIndex < 0 || imageIndex >= productData.productImage.length) {
+      return res.status(400).json({ message: 'Invalid image index' });
+    }
+
+    // Remove the image at the specified index from the product's images array
+    productData.productImage.splice(imageIndex, 1);
+    await productData.save();
+
+    res.redirect('/admin/editProducts?id='+id);
+
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
 const updateOrderStatus=async(req,res)=>{
@@ -356,25 +403,34 @@ const getAddCoupon=async(req,res)=>{
   }
 }
 
-const addCoupon=async(req,res)=>{
-  try{
-   
-  const coupon=new Coupon ({
-    coupenCode:req.body.couponCode,
-    couponAmount:req.body.couponDiscount,
-    minimumAmount:req.body.couponMinAmount,
-    description:req.body.couponDescription,
-    image:req.file.filename,
-    startDate:req.body.couponStart,
-    expiryDate:req.body.couponExpire,
-  }).save()
-  res.redirect('/admin/couponList')
+const addCoupon = async (req, res) => {
+  try {
+    const couponCode = req.body.couponCode;
+    const couponExists = await Coupon.exists({ coupenCode: { $regex: new RegExp('^' + couponCode + '$', 'i') } });
 
-  }catch(error){
+    if (couponExists) {
+      // If a coupon with the same code (case-sensitive) already exists, send a message to the front end
+      res.render('addCoupon',{ message: 'Coupon code already exists.' });
+    } else {
+      const coupon = new Coupon({
+        coupenCode: couponCode,
+        couponAmount: req.body.couponDiscount,
+        minimumAmount: req.body.couponMinAmount,
+        description: req.body.couponDescription,
+        image: req.file.filename,
+        startDate: req.body.couponStart,
+        expiryDate: req.body.couponExpire,
+      });
+
+      await coupon.save();
+      res.redirect('/admin/couponList');
+    }
+  } catch (error) {
     console.log(error.message);
-    res.render('404')
+    res.render('404');
   }
-}
+};
+
 
 const couponList=async(req,res)=>{
   try{
@@ -862,6 +918,7 @@ module.exports = {
   addProducts,
   editProductsLoad,
   editProducts,
+  deleteImage,
   categoriesLoad,
   ordersLoad,
   addCategory,

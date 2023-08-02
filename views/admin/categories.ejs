@@ -144,9 +144,11 @@
               <input type="text" name="categoryOffer" class="category-input" placeholder="Category Offer" min="30">
               <button type="submit" class="btn btn-primary category-btn" onclick="showConfirmation()">Add</button>
             </div>
-            <% if(typeof message!=='undefined'){%>
-            <p><%= message %></p>
-            <% }%>
+            <% if (typeof message !== 'undefined') { %>
+              <span class="error-message" style="color: red;">
+                <%= message %>
+              </span>
+            <% } %>
           </form>
           <table class="table category-list container">
             <thead>
