@@ -138,13 +138,40 @@
               <label for="product-offer">Product Offer</label>
               <input type="number" name="ProductOffer" class="form-control" id="product-offer" min="0">
             </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <!-- <button type="submit" class="btn btn-primary">Add Product</button> -->
+            <button type="submit" id="add-product-btn" class="btn btn-primary">Add Product</button>
+
           </form>
         </div>
       </div>
       
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // Select the "Add Product" button
+    const addProductButton = document.getElementById('add-product-btn');
+  
+    // Add a click event listener to the button
+    addProductButton.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+  
+      // Show a SweetAlert popup
+      Swal.fire({
+        title: 'Product Added!',
+        text: 'Your product has been successfully added.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        // If the user clicks "OK", you can submit the form
+        if (result.isConfirmed) {
+          const form = document.querySelector('form');
+          form.submit();
+        }
+      });
+    });
+  </script>
+  
   <script>
     function previewImage(event) {
       const previewImages = document.getElementById('preview-image');
