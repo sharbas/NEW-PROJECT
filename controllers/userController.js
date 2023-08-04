@@ -776,8 +776,9 @@ const getCart = async (req, res) => {
         totalPrice += ProductPrice[i];
       }
     }
-
-    res.render("cart", { userCartData, totalPrice, ProductPrice, productId });
+    const stock=userCartData.product
+    console.log(stock)
+        res.render("cart", { userCartData, totalPrice, ProductPrice, productId });
   } catch (error) {
     console.log(error.message);
     res.render("404");
@@ -818,93 +819,6 @@ const updateKg = async (req, res) => {
   }
 };
 
-// const loadCheckout = async (req, res) => {
-//   try {
-//     const userId = req.session.userId;
-//     const user = await User.findOne({ _id: userId });
-
-//     const cart = await Cart.findOne({ userId: req.session.userId })
-//       .populate("product.productId")
-//       .exec();
-
-
-//     let subTotal = 0;
-//     for (let i = 0; i < cart.product.length; i++) {
-//       subTotal += cart.product[i].total;
-//     }
-
-//     let grandTotal = 0;
-//     for (let i = 0; i < cart.product.length; i++) {
-//       grandTotal += cart.product[i].total;
-//     }
-//     let wallet = user.wallet;
-//     const encodeWallet = encodeURIComponent(JSON.stringify(wallet));
-//     // const userCartData = await Cart.findOne({ userId: req.session.userId });
-
-//     // Convert the user object to a JSON string and then encode it
-//     const encodeduser = encodeURIComponent(JSON.stringify(user));
-
-// //////////////////////////////////////////////////////////////////////////////////
-// //its the condition for out of stock
-// /////////////////////////////////////////////////////////////////////////////////
-// let userCartData = await Cart.findOne({ userId: userId })
-//       .populate("product.productId")
-//       .lean()
-//       .exec();
-   
-//     if (!userCartData) {
-//       userCartData = null; // Set userCartData to null if it's null or empty
-//     }
-    
-//     const productId = userCartData?.product?.map((data) => {
-//       return {
-//         id: data.productId?._id.toString(),
-//       };
-//     });
-
-//     let totalPrice = 0;
-//     var ProductPrice = [];
-
-//     if (userCartData?.product && userCartData.product.length > 0) {
-//       for (let i = 0; i < userCartData.product.length; i++) {
-//         ProductPrice[i] =
-//           userCartData.product[i].productId.offerPrice *
-//           userCartData.product[i].kg;
-//         totalPrice += ProductPrice[i];
-//       }
-//     }
-    
-//     for(let i=0;i<cart.product.length;i++){
-//       console.log(cart.product[i].kg,'this is kg',cart.product[i].productId.stock,"this is stock" );
-//       if(cart.product[i].kg>cart.product[i].productId.stock){
-//     res.render('cart',{ // Ensure that 'user' variable is passed correctly
-//     userCartData, totalPrice, ProductPrice, productId
-//     ,message:`${cart.product[i].productId.productName}+"is out of stock, remove the product from the cart to checkout"`})
-//       }
-//     }
-
-// //////////////////////////////////////////////////////////////////////
-// //its the ending of out of stock
-// /////////////////////////////////////////////////////////////////////
-
-
-//     res.render("checkout", {
-//       user: user, // Ensure that 'user' variable is passed correctly
-//       encodeduser,
-//       cart,
-//       grandTotal,
-//       subTotal,
-//       encodeWallet,
-//       userCartData,
-//     });
-//   } catch (error) {
-//     console.log(error.message);
-//     res.render("404");
-//   }
-// };
-
-
-
 const loadCheckout = async (req, res) => {
   try {
     const userId = req.session.userId;
@@ -923,62 +837,21 @@ const loadCheckout = async (req, res) => {
     for (let i = 0; i < cart.product.length; i++) {
       grandTotal += cart.product[i].total;
     }
-
     let wallet = user.wallet;
     const encodeWallet = encodeURIComponent(JSON.stringify(wallet));
+    const userCartData = await Cart.findOne({ userId: req.session.userId });
+
+    // Convert the user object to a JSON string and then encode it
     const encodeduser = encodeURIComponent(JSON.stringify(user));
 
-    // Check for out-of-stock products
-    const outOfStockProducts = cart.product.filter(
-      (item) => item.kg > item.productId.stock
-    );
-
-    if (outOfStockProducts.length > 0) {
-      // If there are out-of-stock products, display the message on checkout page
-let userCartData = await Cart.findOne({ userId: userId })
-      .populate("product.productId")
-      .lean()
-      .exec();
-   
-    if (!userCartData) {
-      userCartData = null; // Set userCartData to null if it's null or empty
-    }
-    
-    const productId = userCartData?.product?.map((data) => {
-      return {
-        id: data.productId?._id.toString(),
-      };
-    });
-
-    let totalPrice = 0;
-    var ProductPrice = [];
-
-    if (userCartData?.product && userCartData.product.length > 0) {
-      for (let i = 0; i < userCartData.product.length; i++) {
-        ProductPrice[i] =
-          userCartData.product[i].productId.offerPrice *
-          userCartData.product[i].kg;
-        totalPrice += ProductPrice[i];
-      }
-    }
-
-      return res.redirect('/cart?userCartData=' + encodeURIComponent(JSON.stringify(userCartData)) +
-      '&totalPrice=' + encodeURIComponent(totalPrice) +
-      '&ProductPrice=' + encodeURIComponent(ProductPrice) +
-      '&productId=' + encodeURIComponent(productId) +
-      '&message=' + encodeURIComponent(`${outOfStockProducts[0].productId.productName} is out of stock, remove the product from the cart to checkout`));
-
-    }
-
-    // If no out-of-stock products, proceed with rendering the checkout page normally
     res.render("checkout", {
-      user: user,
+      user: user, // Ensure that 'user' variable is passed correctly
       encodeduser,
       cart,
       grandTotal,
       subTotal,
       encodeWallet,
-      userCartData: cart, // Pass cart as userCartData since there are no out-of-stock products
+      userCartData,
     });
   } catch (error) {
     console.log(error.message);
@@ -986,15 +859,12 @@ let userCartData = await Cart.findOne({ userId: userId })
   }
 };
 
-
 const Checkout = async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.session.userId })
       .populate("product.productId")
       .exec();
       //  console.log('jdhfkjhsajhklahkj;ldsfjhj;kah',cart);
-
-      
      
     var grandTotal = 0;
     for (let i = 0; i < cart.product.length; i++) {

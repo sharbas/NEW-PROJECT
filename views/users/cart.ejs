@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	<meta name="description"
+		content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- title -->
 	<title>Cart</title>
@@ -32,57 +34,58 @@
 	<link rel="stylesheet" href="/public/assets/css/responsive.css">
 
 	<style>
+		.delete-button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 30px;
+			height: 30px;
+			background-color: #f5f0f0;
+			color: #fa0303;
+			border-radius: 50%;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+		}
 
-.delete-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  background-color: #f5f0f0;
-  color: #fa0303;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-.icon-header-noti::after {
-  content: attr(data-notify);
-  font-family: Poppins-Regular;
-  font-size: 12px;
-  color: #fff;
-  line-height: 15px;
-  text-align: center;
+		.icon-header-noti::after {
+			content: attr(data-notify);
+			font-family: Poppins-Regular;
+			font-size: 12px;
+			color: #fff;
+			line-height: 15px;
+			text-align: center;
 
-  display: block;
-  position: absolute;
-  top: -7px;
-  right: 0;
-  min-width: 15px;
-  height: 15px;
-  padding: 0 3px;
-  background-color: #717fe0;
-}
-.delete-button:hover {
-  background-color: #f37922;
-}
+			display: block;
+			position: absolute;
+			top: -7px;
+			right: 0;
+			min-width: 15px;
+			height: 15px;
+			padding: 0 3px;
+			background-color: #717fe0;
+		}
 
-.delete-button i {
-  font-size: 18px;
-}
+		.delete-button:hover {
+			background-color: #f37922;
+		}
 
+		.delete-button i {
+			font-size: 18px;
+		}
 	</style>
 
 </head>
+
 <body>
-	
+
 	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
+	<div class="loader">
+		<div class="loader-inner">
+			<div class="circle"></div>
+		</div>
+	</div>
+	<!--PreLoader Ends-->
+
 	<!-- header -->
 	<div class="top-header-area" id="sticker">
 		<div class="container">
@@ -100,41 +103,44 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-							  <li class="current-list-item">
-								<a href="/home">Home</a>
-							  </li>
-							  <li>
-								<a href="/shop">Shop</a>
-								<ul class="sub-menu">
-								  <li><a href="/shop">Shop</a></li>
-								
-								 
-								  <li><a href="/cart">Cart</a></li>
-								  <li><a href="/coupon">Coupons</a></li>
-								  <li><a href="/myOrder">my orders</a></li>
-								</ul>
-							  </li>
-							  <li>
-								<div>
-									<% if (!userCartData || !userCartData.product) { %>
-										<div class="header-icons icon-header-noti" style="display: flex; align-items: center;" data-notify="0">
-											<a class="shopping-cart" href="/cart">
-												<i class="fas fa-shopping-cart"></i>
-											</a>
-										</div>
-									<% } else { %>
-										<div class="header-icons icon-header-noti" style="display: flex; align-items: center;" data-notify="<%= userCartData.product.length %>">
-											<a class="shopping-cart" href="/cart">
-												<i class="fas fa-shopping-cart"></i>
-											</a>
-										</div>
-									<% } %>
-								</div>
-								
-							  </li>
+								<li class="current-list-item">
+									<a href="/home">Home</a>
+								</li>
+								<li>
+									<a href="/shop">Shop</a>
+									<ul class="sub-menu">
+										<li><a href="/shop">Shop</a></li>
+
+
+										<li><a href="/cart">Cart</a></li>
+										<li><a href="/coupon">Coupons</a></li>
+										<li><a href="/myOrder">my orders</a></li>
+									</ul>
+								</li>
+								<li>
+									<div>
+										<% if (!userCartData || !userCartData.product) { %>
+											<div class="header-icons icon-header-noti"
+												style="display: flex; align-items: center;" data-notify="0">
+												<a class="shopping-cart" href="/cart">
+													<i class="fas fa-shopping-cart"></i>
+												</a>
+											</div>
+											<% } else { %>
+												<div class="header-icons icon-header-noti"
+													style="display: flex; align-items: center;"
+													data-notify="<%= userCartData.product.length %>">
+													<a class="shopping-cart" href="/cart">
+														<i class="fas fa-shopping-cart"></i>
+													</a>
+												</div>
+												<% } %>
+									</div>
+
+								</li>
 							</ul>
-						  </nav>
-						
+						</nav>
+
 						<div class="mobile-menu"></div>
 						<!-- menu end -->
 					</div>
@@ -162,7 +168,7 @@
 		</div>
 	</div>
 	<!-- end search arewa -->
-	
+
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
@@ -187,117 +193,131 @@
 						Cart Empty
 					</p>
 					<%}else{%>
-					
-						<% if (typeof message !== 'undefined') { %>
-							<span class="error-message" style="color: red;">
-							  <%= message %>
-							</span>
-						  <% } %>
-						
-				<div class="col-lg-8 col-md-12">
-					<div class="cart-table-wrap">
-						<table class="cart-table">
-							<thead class="cart-table-head">
-								<tr class="table-head-row">
-									<th class="product-remove"></th>
-									<th class="product-image">Product Image</th>
-									<th class="product-name">Name</th>
-									<th class="product-price">Price</th>
-									<th class="product-quantity">kg</th>
-									<th class="product-total">Total</th>
-								</tr>
-							</thead>
-							
-							
-							<tbody>
-								
-								<%for(let i=0;i<userCartData.product.length;i++){%>
-									<tr class="table-body-row">
-										<td class="product-remove">
-											<a href="#" onclick="showDeleteConfirmation(event, <%=i%>)" class="delete-button">
-											  <i class="fas fa-trash"></i>
-											</a>
-										  </td>
-										  
-										  <% if (userCartData.product[i].productId.productImage && userCartData.product[i].productId.productImage.length > 0) { %>
-											<td class="product-image">
-												<img src="/public/images/<%= userCartData.product[i].productId.productImage[0] %>" alt="">
-											</td>
-											<% } else { %>
-											<!-- Render a placeholder image or some default image here -->
-											<td class="product-image">
-												<img src="/public/images/placeholder-image.jpg" alt="">
-											</td>
-											<% } %>										  
-										
-										<td class="product-name"><%= userCartData.product[i].productId.productName  %></td>
-										<td class="product-price">&#8377;<%= userCartData.product[i].productId.offerPrice  %></td>
-										<td class="product-quantity">
 
-											<div class="input-group">
-												<span class="input-group-btn">
-													<button class="btn btn-default" onclick="decrementCount(<%=i%>)"
-														type="button">
-														-
-													</button>
-												</span>
-												<span type="text" id="quantity-<%=i%>" class="form-control" value="" readonly ><%= userCartData.product[i].kg %></span>
-												<span class="input-group-btn">
-													<button class="btn btn-default" onclick="incrementCount(<%=i%>)"
-													
-														type="button">
-														+
-													</button>
-												</span>
-											</div>
 
-										  </td>
-										  
-									    <td class="product-total" >
-										<span id="productTotal-<%=i%>"><%= ProductPrice[i] %></span> </td>
-									</tr>
-							<h1></h1>
-								<%}%>
-							</tbody>
-						</table>
-					</div>
-				</div>
 
-				<div class="col-lg-4">
-					<div class="total-section">
+						<div class="col-lg-8 col-md-12">
+							<div class="cart-table-wrap">
+								<table class="cart-table">
+									<thead class="cart-table-head">
+										<tr class="table-head-row">
+											<th class="product-remove"></th>
+											<th class="product-image">Product Image</th>
+											<th class="product-name">Name</th>
+											<th class="product-stock" hidden>Stock</th>
+											<th class="product-price">Price</th>
+											<th class="product-quantity">kg</th>
+											<th class="product-total">Total</th>
+										</tr>
+									</thead>
 
-				
-					
-						<table class="total-table" style="margin-top: px;">
-							<thead class="total-table-head">
-								<tr class="table-total-row">
-									<th>Total</th>
-									<th>Price</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <tr class="total-data">
+
+									<tbody>
+
+										<%for(let i=0;i<userCartData.product.length;i++){%>
+											<tr class="table-body-row">
+												<td class="product-remove">
+													<a href="#" onclick="showDeleteConfirmation(event, <%=i%>)"
+														class="delete-button">
+														<i class="fas fa-trash"></i>
+													</a>
+												</td>
+												<% if(userCartData.product[i].productId.stock<userCartData.product[i].kg){
+													%>
+													<td class="product-image" id="pimage" value="0"><img src=""
+															alt="Out Of Stock"></td>
+													<% }else{ %>
+														<td class="product-image" id="pimage"><img
+																src="/public/images/<%= userCartData.product[i].productId.productImage[0]%> "
+																alt="Out Of Stock"></td>
+														<% } %>
+															<td class="product-name">
+																<%= userCartData.product[i].productId.productName %>
+															</td>
+															<td class="product-name" hidden id="stockNum">
+																<%= userCartData.product[i].productId.stock %>
+															</td>
+															<td class="product-price">&#8377;<%=
+																	userCartData.product[i].productId.offerPrice %>
+															</td>
+															<td class="product-quantity">
+
+																<div class="input-group">
+																	<span class="input-group-btn">
+																		<button class="btn btn-default"
+																			onclick="decrementCount(<%=i%>)"
+																			type="button">
+																			-
+																		</button>
+																	</span>
+																	<span type="text" id="quantity-<%=i%>"
+																		class="form-control" value="" readonly>
+																		<%= userCartData.product[i].kg %>
+																	</span>
+																	<span class="input-group-btn">
+																		<button class="btn btn-default"
+																			onclick="incrementCount(<%=i%>)"
+																			type="button" >
+																			+
+																		</button>
+																		
+																	
+																	</span>
+																</div>
+
+															</td>
+
+															<td class="product-total">
+																<span id="productTotal-<%=i%>">
+																	<%= ProductPrice[i] %>
+																</span>
+															</td>
+											</tr>
+											<h1></h1>
+											<%}%>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="total-section">
+
+
+
+								<table class="total-table" style="margin-top: px;">
+									<thead class="total-table-head">
+										<tr class="table-total-row">
+											<th>Total</th>
+											<th>Price</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- <tr class="total-data">
 									<td><strong>Subtotal: </strong></td>
 									<td>$500</td>
 								</tr> -->
-								<tr class="total-data">
-									<td><strong>Shipping: </strong></td>
-									<td> Free </td>	
-								</tr>
-								<tr class="total-data">
-									<td><strong>Total: </strong></td>
-									<td id="grandTotal">&#8377;<%= totalPrice  %></td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<div class="cart-buttons">
-							
-							<a href="/checkout" class="boxed-btn black">Check Out</a>
+										<tr class="total-data">
+											<td><strong>Shipping: </strong></td>
+											<td> Free </td>
+										</tr>
+										<tr class="total-data">
+											<td><strong>Total: </strong></td>
+											<td id="grandTotal">&#8377;<%= totalPrice %>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<div class="cart-buttons">
+
+									<a href="/checkout" class="boxed-btn black" id="checkButton">Check Out</a>
+									<p id="messageStock"></p>
+								</div>
+
+							</div>
 						</div>
-					</div>
-				</div>
-				<%}%>
+						<%}%>
 			</div>
 		</div>
 	</div>
@@ -338,7 +358,8 @@
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box about-widget">
 						<h2 class="widget-title">About us</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium
+							doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
@@ -356,9 +377,9 @@
 						<h2 class="widget-title">Pages</h2>
 						<ul>
 							<li><a href="/home">Home</a></li>
-							
+
 							<li><a href="services.html">Shop</a></li>
-							
+
 						</ul>
 					</div>
 				</div>
@@ -376,14 +397,14 @@
 		</div>
 	</div>
 	<!-- end footer -->
-	
+
 	<!-- copyright -->
 	<div class="copyright">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="">sharbas mohammed</a>,  All Rights Reserved.<br>
-					
+					<p>Copyrights &copy; 2019 - <a href="">sharbas mohammed</a>, All Rights Reserved.<br>
+
 					</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
@@ -401,7 +422,7 @@
 		</div>
 	</div>
 	<!-- end copyright -->
-	
+
 	<!-- jquery -->
 	<script src="/public/assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
@@ -428,67 +449,65 @@
 
 	<script>// Fetch the cart count from the backend
 		function fetchCartCount() {
-		  // Make an AJAX request to your backend to fetch the cart count
-		  // Replace this with your actual API endpoint or logic
-		  $.ajax({
-			url: "/api/cart/count",
-			type: "GET",
-			success: function(response) {
-			  // Update the data-notify attribute value
-			  $('.header-icons').attr('data-notify', response.count);
-			},
-			error: function() {
-			  console.log("Error fetching cart count");
-			}
-		  });
+			// Make an AJAX request to your backend to fetch the cart count
+			// Replace this with your actual API endpoint or logic
+			$.ajax({
+				url: "/api/cart/count",
+				type: "GET",
+				success: function (response) {
+					// Update the data-notify attribute value
+					$('.header-icons').attr('data-notify', response.count);
+				},
+				error: function () {
+					console.log("Error fetching cart count");
+				}
+			});
 		}
-		
+
 		// Call the fetchCartCount function initially to populate the cart count
 		fetchCartCount();
-		
-		// You can also call fetchCartCount function after adding/removing products from the cart to update the count dynamically.
-		</script>
-<script>
-  function showDeleteConfirmation(event, index) {
-    event.preventDefault();
 
-    swal({
-      title: "Delete Item",
-      text: "Are you sure you want to delete this item?",
-      icon: "warning",
-      buttons: ["Cancel", "Delete"],
-      dangerMode: true,
-    }).then((deleteItem) => {
-      if (deleteItem) {
-        // Proceed with the delete item logic here
-        window.location.href = "/deleteitem?index=" + index;
-      }
-    });
-  }
-</script>
+		// You can also call fetchCartCount function after adding/removing products from the cart to update the count dynamically.
+	</script>
+	<script>
+		function showDeleteConfirmation(event, index) {
+			event.preventDefault();
+
+			swal({
+				title: "Delete Item",
+				text: "Are you sure you want to delete this item?",
+				icon: "warning",
+				buttons: ["Cancel", "Delete"],
+				dangerMode: true,
+			}).then((deleteItem) => {
+				if (deleteItem) {
+					// Proceed with the delete item logic here
+					window.location.href = "/deleteitem?index=" + index;
+				}
+			});
+		}
+	</script>
 
 	//script of the single product for updation
-    <script>
+	<script>
 		// Function to handle count increment
 		function incrementCount(i) {
-		
-			var quantityElement=$('#quantity-'+i)
-			var quantity=parseInt(quantityElement.text())
-			if(quantity<=6){
-				quantity+=1
+			var quantityElement = $('#quantity-' + i)
+			var quantity = parseInt(quantityElement.text())
+			if (quantity <= 6) {
+				quantity += 1
 				quantityElement.text(quantity)
-				updateQuantity(quantity,i)
-				
+				updateQuantity(quantity, i)
 			}
-			
 
-			
+
+
 
 		}
-		
-	function	updateQuantity(quantity,i){
-        
-		$.ajax({
+
+		function updateQuantity(quantity, i) {
+
+			$.ajax({
 				type: "POST",
 				url: "/updatecart", // Replace with the actual endpoint to update count
 				data: {
@@ -497,9 +516,9 @@
 				},
 				success: function (response) {
 					// Handle success response
-					const total=$('#productTotal-'+i)
+					const total = $('#productTotal-' + i)
 					total.text(response.total)
-					const grandTotal=$('#grandTotal')
+					const grandTotal = $('#grandTotal')
 					grandTotal.text('₹' + response.grandTotal)
 					console.log("Count updated successfully");
 				},
@@ -510,20 +529,20 @@
 			});
 
 
-	}
-		
+		}
+
 		// Send AJAX request to update the count in the database
-		
-		
+
+
 
 		// Function to handle count decrement
 		function decrementCount(i) {
-			var quantityElement=$('#quantity-'+i)
-			var quantity=parseInt(quantityElement.text())
-			if(quantity>1){
-				quantity-=1
+			var quantityElement = $('#quantity-' + i)
+			var quantity = parseInt(quantityElement.text())
+			if (quantity > 1) {
+				quantity -= 1
 				quantityElement.text(quantity)
-				updateQuantity(quantity,i)
+				updateQuantity(quantity, i)
 			}
 
 		}
@@ -545,8 +564,25 @@
 			// 		console.error("Error updating count:", error);
 			// 	},
 			// });
-		
+
+	</script>
+	<script>
+		const stockElements = document.querySelectorAll("#stockNum");
+		let buttonC = document.getElementById('checkButton')
+		let message = document.getElementById('messageStock')
+
+		stockElements.forEach((stockElement, index) => {
+			const stockValue = parseInt(stockElement.textContent);
+
+			if (stockValue < 1) {
+				buttonC.style.display = 'none'
+				message.innerText = 'Delete the No stock item and continue'
+			} else {
+				buttonC.style.display = 'block'
+			}
+		});
 	</script>
 
 </body>
+
 </html>

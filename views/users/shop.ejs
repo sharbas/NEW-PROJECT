@@ -250,9 +250,15 @@
 			  </p>
 			  <% } %>
 			</div>
+			<% if(product.stock>0){ %>
 			<a href="#" onclick="showAddToCartConfirmation(event, '<%= product._id %>')" class="cart-btn">
 			  <i class="fas fa-shopping-cart"></i> Add to Cart
 			</a>
+			<%}else{ %>
+				<p href="#"disabled class="" >
+					<i class="fas fa-times"></i> Sold Out
+				</p>
+				  <% } %>
 		  </div>
 		</div>
 		<% }) %>

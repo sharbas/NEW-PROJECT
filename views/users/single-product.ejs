@@ -275,9 +275,17 @@
 						</div>
 
 						<div class="buttons d-flex flex-row mt-5 gap-3">
+							<%if(singleProduct.stock>0){ %>
 							<button id="cartButton" onclick="showAddToCartConfirmation(event, '<%= singleProduct._id %>')" class="cart-button btn btn-outline-primary">
 								Add to Cart
 							  </button>
+							  <% }else{ %>
+
+								<p href="#"disabled class="" >
+									<i class="fas fa-times"></i> Sold Out
+								</p>
+
+								<% } %>
 						</div>
 
 						<p>
