@@ -216,7 +216,7 @@
                     <td>
                       <% for(let j=0;j<orders[i].orderItems.length;j++){ %>
                         <div class="d-flex align-items-center">
-                      <img src="/public/images/<%= orders[i].orderItems[j].productId.productImage[0] %>" alt="Product Image" style="width: 40px; height: 40px;">
+                      <img src="/public/images/<%= orders[i].orderItems[j].productId.productImage[0] || 'image is deleted' %>" alt="Product Image" style="width: 40px; height: 40px;">
                       <div class="ms-3">
                       <%= orders[i].orderItems[j].productId.productName %>
                     </div>
