@@ -1,10 +1,10 @@
-const User = require("../models/userModel");
+// const User = require("../models/userModel");
 // const user=User.findOne({_id:req.session.userId})
 
 const isLogin=async(req,res,next)=>{
     try {
-        const userFind=await User.findOne({_id:req.session.userId})
-        if(req.session.userId && userFind.isBlock==false){
+        // const userFind=await User.findOne({_id:req.session.userId})
+        if(req.session.userId ){
             // if(user.is_blocked===true){
             //     console.log("user.is_blocked");
            
