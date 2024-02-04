@@ -17,6 +17,7 @@ const adminRouter = require('./routes/adminRoute');
 mongoose.connect('mongodb+srv://mohammedsharbas32:rlR2mPy8WrOY4fuN@nutrifreshfruit.vwns9s8.mongodb.net/?retryWrites=true&w=majority')
 
 
+
 app.use(express.static(path.join(__dirname,'public')))
 app.use('/public',express.static('public'))
 
