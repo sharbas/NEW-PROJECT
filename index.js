@@ -14,7 +14,7 @@ const  userRouter = require('./routes/userRoute');
 const adminRouter = require('./routes/adminRoute');
 
 // mongoose.connect('mongodb://127.0.0.1:27017/NutriNatureFruit')
-mongoose.connect('mongodb+srv://sharbas:AFzEGlptjcJkGYSW@cluster0.prlhos8.mongodb.net/')
+mongoose.connect('mongodb+srv://mohammedsharbas32:rlR2mPy8WrOY4fuN@nutrifreshfruit.vwns9s8.mongodb.net/?retryWrites=true&w=majority')
 
 
 app.use(express.static(path.join(__dirname,'public')))

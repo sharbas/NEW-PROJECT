@@ -4,7 +4,8 @@
 const isLogin=async(req,res,next)=>{
     try {
         // const userFind=await User.findOne({_id:req.session.userId})
-        if(req.session.userId ){
+        if(req.session.userId 
+            ){
             // if(user.is_blocked===true){
             //     console.log("user.is_blocked");
            

@@ -14,7 +14,9 @@ const sharp=require('sharp');
 const { log } = require("console");
 const adminLoginLoad = async (req, res) => {
   try {
-    res.render("login");
+    res.render("login");FKDI,KKKPIIRIRILPDKKFKKGOOLDO
+    KUJDI
+    
   } catch (error) {
     console.log(error.message);
     res.render("404")
