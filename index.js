@@ -18,8 +18,8 @@ mongoose.connect('mongodb+srv://mohammedsharbas32:rlR2mPy8WrOY4fuN@nutrifreshfru
 
 
 
-app.use(express.static(path.join(__dirname,'public')))
-app.use('/public',express.static('public/images'))
+// app.use(express.static(path.join(__dirname,'public')))
+// app.use('/public',express.static('public/images'))
 
 app.use(nocache())
 app.use(morgan('dev'))
