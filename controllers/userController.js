@@ -781,7 +781,8 @@ const getCart = async (req, res) => {
         res.render("cart", { userCartData, totalPrice, ProductPrice, productId });
   } catch (error) {
     console.log(error.message);
-    res.render("404");
+    let userCartData
+    res.render("cart",{userCartData});
   }
 };
 
